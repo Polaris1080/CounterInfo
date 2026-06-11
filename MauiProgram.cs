@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CounterInfo.Repository;
+using Microsoft.Extensions.Logging;
 
 namespace CounterInfo
 {
@@ -15,8 +16,10 @@ namespace CounterInfo
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<CounterInfoRepository>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

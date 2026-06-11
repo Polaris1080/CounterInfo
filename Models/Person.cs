@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CounterInfo.Model
+namespace CounterInfo.Models
 {
     internal class Person
     {
