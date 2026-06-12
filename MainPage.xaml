@@ -9,65 +9,107 @@
     <ContentPage.BindingContext>
         <viewModels:MainPageViewModel />
     </ContentPage.BindingContext>
-
+    <ContentPage.Resources>
+        <x:Int32 x:Key="BodySpacing">16</x:Int32> 
+    </ContentPage.Resources>
+    
     <ScrollView>
-        <VerticalStackLayout BackgroundColor="{StaticResource Gray100}"
-            Spacing="25">
-            <HorizontalStackLayout BackgroundColor="{StaticResource Gray600}">
-                <Button Text="設定"/>
-                <Label Text="窓口情報" TextColor="{StaticResource White}"/>
-                <Button Text="更新" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Entry Keyboard="Numeric" Text="{Binding Search, Mode=TwoWay}"/>
-                <Button Text="検索" Command="{Binding SearchCommand}"/>
-                <Button Text="通知" Command="{Binding NoticeCommand}"/>
-                <Label Text="{Binding Status, Mode=OneWay}"/>
-            </HorizontalStackLayout>
+        <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
+            <!-- Header -->
+            <Grid BackgroundColor="{StaticResource Gray600}">
+                <Button Text="設定" ImageSource="settings_icon_white.png" ContentLayout="Left" HorizontalOptions="Start"/>
+                <VerticalStackLayout HorizontalOptions="Center" >
+                    <Label Text="窓口状況" FontSize="24"
+                           TextColor="{StaticResource White}" HorizontalOptions="Center"/>
+                    <Label Text="{Binding UpdateTime , StringFormat='{0:MM/dd HH:mm}', Mode=OneWay}" FontSize="14"
+                           TextColor="{StaticResource White}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+                <Button Text="更新" ImageSource="sync_icon_white.png" ContentLayout="Right" HorizontalOptions="End"
+                        Command="{Binding ReloadCommand}"/>
+            </Grid>
+            
+            <!-- Body -->
+            <VerticalStackLayout Spacing="{StaticResource Key=BodySpacing}" Padding="{StaticResource Key=BodySpacing}">
+                <!-- Search & Notice -->
+                <HorizontalStackLayout BackgroundColor="{StaticResource Secondary}" 
+                                       Padding="16,8,8,8" Spacing="8" HorizontalOptions="Center">
+                    <VerticalStackLayout Spacing="20">
+                        <Entry Keyboard="Numeric" Text="{Binding Search, Mode=TwoWay}" WidthRequest="100"
+                               BackgroundColor="White"
+                               Margin="0,8,0,0"/>
+                        <Label Text="{Binding Status, Mode=OneWay}" MinimumWidthRequest="100" MaximumWidthRequest="200"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Button Text="検索" ContentLayout="Left" ImageSource="search_icon_white.png"
+                                Command="{Binding SearchCommand}"/>
+                        <Button Text="通知" ContentLayout="Left" ImageSource="add_alert_icon_white.png"
+                                Command="{Binding NoticeCommand}"/>
+                    </VerticalStackLayout>     
+                </HorizontalStackLayout>
 
-            <StackLayout>
-                <CollectionView>
-                    <CollectionView.ItemsSource>
-                        <x:Array Type="{x:Type model:Person }">
-                            <model:Person Name="Steve" Age="21" Location="USA" />
-                            <model:Person Name="John" Age="37" Location="USA" />
-                            <model:Person Name="Tom" Age="42" Location="UK" />
-                            <model:Person Name="Lucas" Age="29" Location="Germany" />
-                            <model:Person Name="Tariq" Age="39" Location="UK" />
-                            <model:Person Name="Jane" Age="30" Location="USA" />
-                        </x:Array>
-                    </CollectionView.ItemsSource>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Person">
-                            <HorizontalStackLayout>
-                                <Label Text="{Binding Name}" FontAttributes="Bold" />
-                                <Label Grid.Column="1" Text="{Binding Age}" />
-                                <Label Grid.Column="2" Text="{Binding Location}" HorizontalTextAlignment="End" />
-                            </HorizontalStackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-            <Label Text="説明"/>
-            <Border>
+                <!-- Infomation -->
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <CollectionView>
+                        <CollectionView.ItemsSource>
+                            <x:Array Type="{x:Type model:Person }">
+                                <model:Person Name="Steve" Age="21" Location="USA" />
+                                <model:Person Name="John" Age="37" Location="USA" />
+                                <model:Person Name="Tom" Age="42" Location="UK" />
+                                <model:Person Name="Lucas" Age="29" Location="Germany" />
+                                <model:Person Name="Tariq" Age="39" Location="UK" />
+                                <model:Person Name="Jane" Age="30" Location="USA" />
+                            </x:Array>
+                        </CollectionView.ItemsSource>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Person">
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                    <Label Grid.Column="1" Text="{Binding Age}" />
+                                    <Label Grid.Column="2" Text="{Binding Location}" HorizontalTextAlignment="End" />
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+                <!-- 受付内容 待ち人数 受付番号 想定待ち時間 -->
+            
+                <!-- Called -->
                 <VerticalStackLayout>
-                    <Border BackgroundColor="AliceBlue">
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray600}"/>
+                            <Setter Property="Stroke" Value="{StaticResource Gray600Brush}"/>
+                            <Setter Property="StrokeThickness" Value="2"/>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="4"/>
+                            <Setter Property="TextColor" Value="{StaticResource White}"/>
+                            <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
+                    <Border>
                         <Label Text="お呼び出し時ご不在の方"/>
                     </Border>
                     <Border>
-                        <FlexLayout Direction="Column" Wrap="Wrap"  JustifyContent="SpaceEvenly" BindableLayout.ItemsSource="{Binding Called}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate x:DataType="x:Int32">
-                                        <Border Margin="8" Padding="4" Background="#C86262" StrokeThickness="0" MaximumWidthRequest="100">
-                                            <Label Text="{Binding}" />
-                                        </Border>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
+                        <FlexLayout Wrap="Wrap" AlignContent="Start" JustifyContent="SpaceBetween"
+                                    BindableLayout.ItemsSource="{Binding Called, Mode=OneWay}"
+                                    BackgroundColor="{StaticResource White}" Padding="4,10,4,0">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:Int32">
+                                    <Border BackgroundColor="{StaticResource Tertiary}" StrokeThickness="0"
+                                            HeightRequest="30" WidthRequest="90"
+                                            Margin="4,0,4,4">
+                                        <Label Text="{Binding}"/>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
                         </FlexLayout>
                     </Border>
-                </VerticalStackLayout>
-            </Border>
+                </VerticalStackLayout>                
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

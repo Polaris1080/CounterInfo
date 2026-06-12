@@ -11,6 +11,13 @@ namespace CounterInfo.ViewModels
         CounterInfoRepository counterInfoRepository;
 
         public int number = 2;
+        public DateTime _updateTime = DateTime.Now;
+        public DateTime UpdateTime
+        {
+            get => _updateTime;
+            set => SetProperty(ref _updateTime, value);
+        }
+
         public string _status = "状態表示";
         public string Status
         {
@@ -56,7 +63,11 @@ namespace CounterInfo.ViewModels
         }
 
         async Task OpenSetting() { }
-        async Task ReloadInfo() { }
+        async Task ReloadInfo()
+        {
+
+            UpdateTime = DateTime.Now;
+        }
         async Task SearchInfo()
         {
             if (int.TryParse(Search, out int re))
