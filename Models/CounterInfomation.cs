@@ -6,7 +6,7 @@ using System.Text;
 namespace CounterInfo.Models
 {
     [Table("CounterInfo")]
-    internal class CounterInfomation
+    public class CounterInfomation
     {
         /// <summary>番号</summary>
         [PrimaryKey, AutoIncrement]
@@ -17,9 +17,12 @@ namespace CounterInfo.Models
         public int Counter { get; set; }
         /// <summary>発行時刻</summary>
         [Column("issue_time")] 
-        public DateTime IssueTime { get; set; }
+        public DateTime? IssueTime { get; set; }
         /// <summary>受付時刻</summary>
         [Column("recept_time")]
-        public DateTime ReceptTime { get; set; }
+        public DateTime? ReceptTime { get; set; }
+        /// <summary>呼ばれたか</summary>
+        [Column("called")]
+        public bool Called { get; set; } = false;
     }
 }

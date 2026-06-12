@@ -2,22 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CounterInfo.Models"
+             xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
              x:Class="CounterInfo.MainPage"
-             
+             x:DataType="viewModels:MainPageViewModel"
              >
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout
+        <VerticalStackLayout BackgroundColor="{StaticResource Gray100}"
             Spacing="25">
-            <HorizontalStackLayout>
+            <HorizontalStackLayout BackgroundColor="{StaticResource Gray600}">
                 <Button Text="設定"/>
-                <Label Text="窓口情報" />
+                <Label Text="窓口情報" TextColor="{StaticResource White}"/>
                 <Button Text="更新" />
             </HorizontalStackLayout>
             <HorizontalStackLayout>
-                <Entry />
-                <Button Text="検索"/>
-                <Button Text="通知"/>
+                <Entry Keyboard="Numeric" Text="{Binding Search, Mode=TwoWay}"/>
+                <Button Text="検索" Command="{Binding SearchCommand}"/>
+                <Button Text="通知" Command="{Binding NoticeCommand}"/>
+                <Label Text="{Binding Status, Mode=OneWay}"/>
             </HorizontalStackLayout>
 
             <StackLayout>
@@ -49,17 +54,19 @@
                     <Border BackgroundColor="AliceBlue">
                         <Label Text="お呼び出し時ご不在の方"/>
                     </Border>
-                    <Label Text="810"/>
+                    <Border>
+                        <FlexLayout Direction="Column" Wrap="Wrap"  JustifyContent="SpaceEvenly" BindableLayout.ItemsSource="{Binding Called}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="x:Int32">
+                                        <Border Margin="8" Padding="4" Background="#C86262" StrokeThickness="0" MaximumWidthRequest="100">
+                                            <Label Text="{Binding}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </Border>
                 </VerticalStackLayout>
             </Border>
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
-            
         </VerticalStackLayout>
     </ScrollView>
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CounterInfo.Repository
 {
-    internal class CounterInfoRepository
+    public class CounterInfoRepository
     {
         SQLiteAsyncConnection? database;
 
