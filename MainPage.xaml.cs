@@ -1,4 +1,5 @@
-﻿using CounterInfo.Models;
+﻿
+using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Diagnostics;
 
@@ -17,6 +18,11 @@ namespace CounterInfo
             counterInfoRepository.SaveItemAsync(new CounterInfomation { ID = 2, Counter = 0, Called = true });
             Debug.WriteLine(counterInfoRepository.GetItemsAsync());
             Debug.WriteLine(Constants.DatabasePath);
+        }
+
+        async void OnSettingButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingPage());
         }
     }
 }

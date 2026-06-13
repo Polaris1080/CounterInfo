@@ -5,6 +5,7 @@
              xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
              x:Class="CounterInfo.MainPage"
              x:DataType="viewModels:MainPageViewModel"
+             NavigationPage.HasNavigationBar="false"
              >
     <ContentPage.BindingContext>
         <viewModels:MainPageViewModel />
@@ -17,7 +18,7 @@
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="設定" ImageSource="settings_icon_white.png" ContentLayout="Left" HorizontalOptions="Start"/>
+                <Button Text="設定" ImageSource="settings_icon_white.png" ContentLayout="Left" HorizontalOptions="Start" Clicked="OnSettingButtonClicked" />
                 <VerticalStackLayout HorizontalOptions="Center" >
                     <Label Text="窓口状況" FontSize="24"
                            TextColor="{StaticResource White}" HorizontalOptions="Center"/>
