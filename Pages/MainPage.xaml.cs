@@ -3,7 +3,7 @@ using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Diagnostics;
 
-namespace CounterInfo
+namespace CounterInfo.Pages
 {
     public partial class MainPage : ContentPage
     {

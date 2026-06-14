@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CounterInfo.Models"
              xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
-             x:Class="CounterInfo.MainPage"
+             x:Class="CounterInfo.Pages.MainPage"
              x:DataType="viewModels:MainPageViewModel"
              NavigationPage.HasNavigationBar="false"
              >

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CounterInfo.Pages;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CounterInfo
 {
