@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:CounterInfo.Models"
+             xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
+             x:Class="CounterInfo.Pages.SettingPage"
+             x:DataType="viewModels:SettingPageViewModel"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.BindingContext>
+        <viewModels:SettingPageViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- Header -->
+            <Grid BackgroundColor="{StaticResource Gray600}">
+                <Button Text="戻る" ImageSource="arrow_back_icon_white.png" ContentLayout="Left" HorizontalOptions="Start" Clicked="OnReturnButtonClicked" />
+                <Label Text="設定" FontSize="24"
+                           TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                <Button Text="保存" ImageSource="save_icon_white.png" ContentLayout="Right" HorizontalOptions="End"
+                        Command="{Binding ReloadCommand}"/>
+            </Grid>
+            
+            <!-- Body -->
+            <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
+                <CollectionView
+                    ItemsSource="{Binding CounterSetting}"
+                    Margin="20" >
+                    <!-- Designate how the collection of items are laid out -->
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+
+                    <!-- Define the appearance of each item in the list -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:CounterSettingViewModel">
+                            <VerticalStackLayout>
+                                <Label Text="窓口Ａ"/>
+                                <Label Text="名称"/>
+                                <Entry Placeholder="" />
+                                <Label Text="確率"/>
+                                <Stepper Minimum="0" Maximum="100" Increment="1" />
+                                <Label Text="％"/>
+                                <Label Text="時間"/>
+                                <TimePicker />
+                                <TimePicker />
+                                <Label Text="間隔"/>
+                                <Stepper Minimum="1" Maximum="60" Increment="1" />
+                                <Label Text="範囲"/>
+                                <Entry Placeholder="" />
+                                <Picker Title="" />
+                                <HorizontalStackLayout>
+                                    <Button ImageSource="remove_icon_white.png" Command="{Binding DeleteCommand}" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <!-- 1 -->
+                <Label Text="範囲（予備）"/>
+                <Entry Placeholder="" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>        
+    </ScrollView>
+
+</ContentPage>

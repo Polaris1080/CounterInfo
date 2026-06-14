@@ -74,12 +74,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\SettingPage.xaml.cs">
-	    <DependentUpon>SettingPage.xaml</DependentUpon>
+	  <Compile Update="Pages\SettingMenuPage.xaml.cs">
+	    <DependentUpon>SettingMenuPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\SettingMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\SettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

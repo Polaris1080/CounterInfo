@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace CounterInfo.ViewModels
 {
-    internal class SettingPageViewModel : ObservableObject
+    internal class SettingMenuPageViewModel : ObservableObject
     {
         CounterSettingRepository counterSettingRepository;
 
@@ -17,7 +17,7 @@ namespace CounterInfo.ViewModels
             set => SetProperty(ref _counterSetting, value);
         }
 
-        public SettingPageViewModel()
+        public SettingMenuPageViewModel()
         {
             counterSettingRepository = new CounterSettingRepository();
 
