@@ -2,15 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:CounterInfo.View"
-             xmlns:model="clr-namespace:CounterInfo.Models"
-             xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
              x:Class="CounterInfo.Pages.MainPage"
-             x:DataType="viewModels:MainPageViewModel"
              NavigationPage.HasNavigationBar="false"
              >
-    <ContentPage.BindingContext>
-        <viewModels:MainPageViewModel />
-    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <x:Int32 x:Key="BodySpacing">16</x:Int32> 
     </ContentPage.Resources>
@@ -19,50 +13,28 @@
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="設定" ImageSource="settings_icon_white.png" ContentLayout="Left" HorizontalOptions="Start" Clicked="OnSettingButtonClicked" />
-                <VerticalStackLayout HorizontalOptions="Center" >
-                    <Label Text="窓口状況" FontSize="24"
-                           TextColor="{StaticResource White}" HorizontalOptions="Center"/>
-                    <Label Text="{Binding UpdateTime , StringFormat='{0:MM/dd HH:mm}', Mode=OneWay}" FontSize="14"
-                           TextColor="{StaticResource White}" HorizontalOptions="Center"/>
+                <Button Text="設定" ContentLayout="Left"  ImageSource="settings_icon_white.png"
+                        Clicked="OnSettingButtonClicked"  HorizontalOptions="Start"/>
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <VerticalStackLayout.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HorizontalOptions" Value="Center"/>
+                            <Setter Property="TextColor" Value="{StaticResource White}"/>
+                        </Style>
+                    </VerticalStackLayout.Resources>
+                    <Label Text  ="窓口状況"   FontSize="24"/>
+                    <Label x:Name="UpdateTime" FontSize="14"/>
                 </VerticalStackLayout>
-                <Button Text="更新" ImageSource="sync_icon_white.png" ContentLayout="Right" HorizontalOptions="End" Clicked="OnReloadButtonClicked"
-                        />
+                <Button Text="更新" ContentLayout="Right" ImageSource="sync_icon_white.png"
+                        Clicked="OnReloadButtonClicked"   HorizontalOptions="End"/>
             </Grid>
 
             <!-- Body -->
             <VerticalStackLayout Spacing="{StaticResource Key=BodySpacing}" Padding="{StaticResource Key=BodySpacing}">
                 <view:SearchAndNoticeWidget/>
-
-                <!-- Infomation -->
-                <VerticalStackLayout HorizontalOptions="Center">
-                    <CollectionView>
-                        <CollectionView.ItemsSource>
-                            <x:Array Type="{x:Type model:Person }">
-                                <model:Person Name="Steve" Age="21" Location="USA" />
-                                <model:Person Name="John" Age="37" Location="USA" />
-                                <model:Person Name="Tom" Age="42" Location="UK" />
-                                <model:Person Name="Lucas" Age="29" Location="Germany" />
-                                <model:Person Name="Tariq" Age="39" Location="UK" />
-                                <model:Person Name="Jane" Age="30" Location="USA" />
-                            </x:Array>
-                        </CollectionView.ItemsSource>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Person">
-                                <HorizontalStackLayout>
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" />
-                                    <Label Grid.Column="1" Text="{Binding Age}" />
-                                    <Label Grid.Column="2" Text="{Binding Location}" HorizontalTextAlignment="End" />
-                                </HorizontalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-                <!-- 受付内容 待ち人数 受付番号 想定待ち時間 -->
-                
+                <view:CounterInfomationWidget/>
                 <view:CalledWidget/>
             </VerticalStackLayout>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

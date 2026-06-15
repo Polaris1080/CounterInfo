@@ -1,34 +1,37 @@
-﻿
-using CommunityToolkit.Mvvm.Messaging;
-using CounterInfo.Messages;
-using CounterInfo.Models;
-using CounterInfo.Repository;
-using System.Diagnostics;
+﻿using CommunityToolkit.Mvvm.Messaging;
+namespace CounterInfo.Pages;
 
-namespace CounterInfo.Pages
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    /* Property */
+    /// <summary>更新時間</summary>
+    public  DateTime  UpdatedTime {get => _updatedTime;  private set {_updatedTime = value;  UpdateTime.Text = UpdatedTime.ToString("MM/dd HH:mm");}}
+    private DateTime _updatedTime = DateTime.MinValue;
+
+
+    /* Event */
+    /// <summary>「設定」が押されたとき</summary>
+    async void OnSettingButtonClicked(object sender, EventArgs e)
     {
-        int count = 0;
-        CounterInfoRepository counterInfoRepository;
+        await Navigation.PushAsync(new SettingPage());
+    }
+    /// <summary>「更新」が押されたとき</summary>
+    async void OnReloadButtonClicked (object sender, EventArgs e)
+    {
+        // 「分」が進んでいなければ更新しない
+        var now = DateTime.Now;
+        if (now.Hour > UpdatedTime.Hour || now.Minute > UpdatedTime.Minute)
+        {
+            UpdatedTime = now;
+            WeakReferenceMessenger.Default.Send(new Messages.InfomationUpdateMessage());
+        }
+    }
 
-        public MainPage()
-        {
-            InitializeComponent();
-            counterInfoRepository = new CounterInfoRepository();
-            counterInfoRepository.SaveItemAsync(new CounterInfomation { ID = 1, Counter = 0 });
-            counterInfoRepository.SaveItemAsync(new CounterInfomation { ID = 2, Counter = 0, Called = true });
-            Debug.WriteLine(counterInfoRepository.GetItemsAsync());
-            Debug.WriteLine(Constants.DatabasePath);
-        }
 
-        async void OnSettingButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SettingPage());
-        }
-        async void OnReloadButtonClicked(object sender, EventArgs e)
-        {
-            WeakReferenceMessenger.Default.Send(new InfomationUpdateMessage());
-        }
+    /* Initialize */
+    public MainPage()
+    {
+        InitializeComponent();
+        UpdatedTime = DateTime.Now;
     }
 }

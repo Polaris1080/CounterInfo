@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CounterInfo.ViewModels"
+             xmlns:model="clr-namespace:CounterInfo.Models"
+             x:Class="CounterInfo.View.CounterInfomationWidget"
+             x:DataType="vm:CounterInfomationWidgetViewModel">
+    <ContentView.BindingContext>
+        <vm:CounterInfomationWidgetViewModel/>
+    </ContentView.BindingContext>
+
+    <VerticalStackLayout HorizontalOptions="Center">
+        <CollectionView>
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type model:Person }">
+                    <model:Person Name="Steve" Age="21" Location="USA" />
+                    <model:Person Name="John" Age="37" Location="USA" />
+                    <model:Person Name="Tom" Age="42" Location="UK" />
+                    <model:Person Name="Lucas" Age="29" Location="Germany" />
+                    <model:Person Name="Tariq" Age="39" Location="UK" />
+                    <model:Person Name="Jane" Age="30" Location="USA" />
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Person">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="{Binding Age}" />
+                        <Label Grid.Column="2" Text="{Binding Location}" HorizontalTextAlignment="End" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+    <!-- 受付内容 待ち人数 受付番号 想定待ち時間 -->
+</ContentView>
