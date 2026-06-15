@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using CounterInfo.Messages;
 using CounterInfo.Repository;
 using System.Collections.ObjectModel;
+
 namespace CounterInfo.View;
 
 
@@ -25,6 +26,7 @@ internal class CalledWidgetViewModel : ObservableObject
     private ObservableCollection<int> _source = [];
 
 
+    /* Initialize */
     public CalledWidgetViewModel()
     {
         Refresh();
@@ -33,6 +35,6 @@ internal class CalledWidgetViewModel : ObservableObject
             WeakReferenceMessenger.Default.Register<InfomationUpdateMessage>(this, (_, _) => Refresh());
         }
 
-        void Refresh() => Task.Run(() => { Source = [.. new CounterInfoRepository().GetCalledAsync().Result.Select(x => x.ID)]; });
+        void Refresh() => Task.Run(() => { Source = new(new CounterInfoRepository().GetCalledAsync().Result.Select(x => x.ID)); });
     }
 }
