@@ -19,6 +19,7 @@ namespace CounterInfo.ViewModels
             void Refresh() => Task.Run(() => { Source = [.. new CounterInfoRepository().GetCalledAsync().Result.Select(x => x.ID)]; });
         }
 
+
         public  ObservableCollection<int>  Source { get => _source;  private set => SetProperty(ref _source, value); }
         private ObservableCollection<int> _source = [];
     }

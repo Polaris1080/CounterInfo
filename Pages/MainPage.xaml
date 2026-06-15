@@ -29,25 +29,10 @@
                 <Button Text="更新" ImageSource="sync_icon_white.png" ContentLayout="Right" HorizontalOptions="End" Clicked="OnReloadButtonClicked"
                         />
             </Grid>
-            
+
             <!-- Body -->
             <VerticalStackLayout Spacing="{StaticResource Key=BodySpacing}" Padding="{StaticResource Key=BodySpacing}">
-                <!-- Search & Notice -->
-                <HorizontalStackLayout BackgroundColor="{StaticResource Secondary}" 
-                                       Padding="16,8,8,8" Spacing="8" HorizontalOptions="Center">
-                    <VerticalStackLayout Spacing="20">
-                        <Entry Keyboard="Numeric" Text="{Binding Search, Mode=TwoWay}" WidthRequest="100"
-                               BackgroundColor="White"
-                               Margin="0,8,0,0"/>
-                        <Label Text="{Binding Status, Mode=OneWay}" MinimumWidthRequest="100" MaximumWidthRequest="200"/>
-                    </VerticalStackLayout>
-                    <VerticalStackLayout>
-                        <Button Text="検索" ContentLayout="Left" ImageSource="search_icon_white.png"
-                                Command="{Binding SearchCommand}"/>
-                        <Button Text="通知" ContentLayout="Left" ImageSource="add_alert_icon_white.png"
-                                Command="{Binding NoticeCommand}"/>
-                    </VerticalStackLayout>     
-                </HorizontalStackLayout>
+                <view:SearchAndNoticeWidget/>
 
                 <!-- Infomation -->
                 <VerticalStackLayout HorizontalOptions="Center">
