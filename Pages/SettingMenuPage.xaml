@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CounterInfo.Models"
              xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
-             x:Class="CounterInfo.Pages.SettingPage"
-             x:DataType="viewModels:SettingPageViewModel"
+             x:Class="CounterInfo.Pages.SettingMenuPage"
+             x:DataType="viewModels:SettingMenuPageViewModel"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.BindingContext>
-        <viewModels:SettingPageViewModel />
+        <viewModels:SettingMenuPageViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout>

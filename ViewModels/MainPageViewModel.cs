@@ -32,13 +32,6 @@ namespace CounterInfo.ViewModels
             set => SetProperty(ref _search, value);
         }
 
-        public int[] _called = [];
-        public int[] Called
-        {
-            get => _called;
-            set => SetProperty(ref _called, value);
-        }
-
         public ICommand SettingCommand { get; }
         public ICommand ReloadCommand { get; }
         public ICommand SearchCommand { get; }
@@ -56,10 +49,10 @@ namespace CounterInfo.ViewModels
             NoticeCommand = new AsyncRelayCommand(AppendNotice);
 
             // AsyncTask
-            Task.Run(async () =>
-            {
-                Called = counterInfoRepository.GetItemsAsync().Result.Where(x => x.Called).Select(x => x.ID).ToArray();
-            });
+            //Task.Run(async () =>
+            //{
+                
+            //});
         }
 
         async Task OpenSetting() { }

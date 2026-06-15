@@ -3,11 +3,11 @@ using CounterInfo.Repository;
 
 namespace CounterInfo.Pages;
 
-public partial class SettingPage : ContentPage
+public partial class SettingMenuPage : ContentPage
 {
     CounterSettingRepository counterSettingRepository;
 
-	public SettingPage()
+	public SettingMenuPage()
 	{
 		InitializeComponent();
         counterSettingRepository = new CounterSettingRepository();

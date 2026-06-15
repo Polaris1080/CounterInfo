@@ -6,7 +6,7 @@
     <ScrollView>
         <VerticalStackLayout>
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="戻る" ImageSource="arrow_back_icon_white.png" ContentLayout="Left" HorizontalOptions="Start" Clicked="OnReturnButtonClicked" />
+                <Button Text="戻る" ImageSource="arrow_back_icon_white.png" ContentLayout="Left" HorizontalOptions="Start"/>
                 <Label Text="設定" FontSize="24"
                            TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
                 <Button Text="保存" ImageSource="save_icon_white.png" ContentLayout="Right" HorizontalOptions="End"

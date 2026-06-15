@@ -32,6 +32,12 @@ namespace CounterInfo.Repository
         //    //return await database.QueryAsync<CounterInfomation>("SELECT * FROM [CounterInfomation] WHERE [Done] = 0");
         //}
 
+        public async Task<List<CounterInfomation>> GetCalledAsync()
+        {
+            await Init();
+            return await database!.Table<CounterInfomation>().Where(t => t.Called).ToListAsync();
+        }
+
         public async Task<CounterInfomation> GetItemAsync(int id)
         {
             await Init();
