@@ -1,4 +1,6 @@
 ﻿
+using CommunityToolkit.Mvvm.Messaging;
+using CounterInfo.Messages;
 using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Diagnostics;
@@ -23,6 +25,10 @@ namespace CounterInfo.Pages
         async void OnSettingButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SettingPage());
+        }
+        async void OnReloadButtonClicked(object sender, EventArgs e)
+        {
+            WeakReferenceMessenger.Default.Send(new InfomationUpdateMessage());
         }
     }
 }

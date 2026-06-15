@@ -26,8 +26,8 @@
                     <Label Text="{Binding UpdateTime , StringFormat='{0:MM/dd HH:mm}', Mode=OneWay}" FontSize="14"
                            TextColor="{StaticResource White}" HorizontalOptions="Center"/>
                 </VerticalStackLayout>
-                <Button Text="更新" ImageSource="sync_icon_white.png" ContentLayout="Right" HorizontalOptions="End"
-                        Command="{Binding ReloadCommand}"/>
+                <Button Text="更新" ImageSource="sync_icon_white.png" ContentLayout="Right" HorizontalOptions="End" Clicked="OnReloadButtonClicked"
+                        />
             </Grid>
             
             <!-- Body -->

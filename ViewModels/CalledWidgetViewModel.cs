@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using CounterInfo.Messages;
 using CounterInfo.Repository;
+using System.Collections.ObjectModel;
 
 namespace CounterInfo.ViewModels
 {
@@ -7,10 +10,16 @@ namespace CounterInfo.ViewModels
     {
         public CalledWidgetViewModel()
         {
-            Task.Run(async () => { Source = [.. new CounterInfoRepository().GetCalledAsync().Result.Select(x => x.ID)]; });
+            Refresh();
+            if (!WeakReferenceMessenger.Default.IsRegistered<InfomationUpdateMessage>(this))
+            {
+                WeakReferenceMessenger.Default.Register<InfomationUpdateMessage>(this, (_, _) => Refresh());
+            }
+
+            void Refresh() => Task.Run(() => { Source = [.. new CounterInfoRepository().GetCalledAsync().Result.Select(x => x.ID)]; });
         }
 
-        public  int[]  Source { get => _source;  set => SetProperty(ref _source, value); }
-        private int[] _source = [];
+        public  ObservableCollection<int>  Source { get => _source;  private set => SetProperty(ref _source, value); }
+        private ObservableCollection<int> _source = [];
     }
 }
