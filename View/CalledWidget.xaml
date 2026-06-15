@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:CounterInfo.ViewModels"             
+             xmlns:self="clr-namespace:CounterInfo.View"
              x:Class="CounterInfo.View.CalledWidget"
-             x:DataType="vm:CalledWidgetViewModel">
+             x:DataType="self:CalledWidgetViewModel">
     <ContentView.BindingContext>
-        <vm:CalledWidgetViewModel/>
+        <self:CalledWidgetViewModel/>
     </ContentView.BindingContext>
     <ContentView.Resources>
         <Style TargetType="Border">

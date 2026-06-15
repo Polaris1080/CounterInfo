@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace CounterInfo.View;
 
 public partial class CounterInfomationWidget : ContentView
@@ -6,4 +8,9 @@ public partial class CounterInfomationWidget : ContentView
 	{
 		InitializeComponent();
 	}
+}
+
+class CounterInfomationWidgetViewModel : ObservableObject
+{
+
 }
