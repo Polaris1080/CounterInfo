@@ -49,7 +49,7 @@
                     <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="想定待ち&#xa;時間(分)"/>
                 </Grid>            
             </Border>
-            <CollectionView ItemsSource="{Binding Source}">
+            <CollectionView ItemsSource="{Binding Source, Mode=OneWay}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:CounterInfoData">
                         <Border>
@@ -63,10 +63,10 @@
                                     </Style>
                                 </Grid.Resources>
 
-                                <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalTextAlignment="Start"  Text="{Binding   Detail}"/>
-                                <Label Grid.Row="0" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding  Waiting}"/>
-                                <Label Grid.Row="1" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding   Number}"/>
-                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalTextAlignment="Center" Text="{Binding Estimate}"/>
+                                <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalTextAlignment="Start"  Text="{Binding   Detail, Mode=OneWay}"/>
+                                <Label Grid.Row="0" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding  Waiting, Mode=OneWay}"/>
+                                <Label Grid.Row="1" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding   Number, Mode=OneWay}"/>
+                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalTextAlignment="Center" Text="{Binding Estimate, Mode=OneWay}"/>
                             </Grid>                        
                         </Border>
                     </DataTemplate>

@@ -22,7 +22,7 @@ internal class CounterInfomationWidgetViewModel : ObservableObject
 {
     /* Property */
     /// <summary>情報源（表示用）</summary>
-    public  ObservableCollection<CounterInfoData>  Source { get => _source; private set => SetProperty(ref _source, value); }
+    public  ObservableCollection<CounterInfoData>  Source { get => _source;  private set => SetProperty(ref _source, value); }
     private ObservableCollection<CounterInfoData> _source = [];
 
 
