@@ -40,5 +40,16 @@ namespace CounterInfo.Repository
             await Init();
             return await database!.DeleteAsync(item);
         }
+
+        public async Task ChangeOrderAsync(int id)
+        {
+            await Init();
+            await database!.RunInTransactionAsync(tran => {
+                // database calls inside the transaction
+                var t1 = tran.Table<CounterSetting>().Where(i => i.Order == id).FirstOrDefault();
+                t1.Order++;
+                tran.Update(t1);
+            });
+        }
     }
 }
