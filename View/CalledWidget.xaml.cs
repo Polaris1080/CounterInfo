@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using CounterInfo.Messages;
 using CounterInfo.Repository;
 using System.Collections.ObjectModel;
-
 namespace CounterInfo.View;
 
 
