@@ -1,12 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 namespace CounterInfo.Pages;
 
+
+
 public partial class MainPage : ContentPage
 {
     /* Property */
     /// <summary>更新時間</summary>
     public  DateTime  UpdatedTime {get => _updatedTime;  private set {_updatedTime = value;  UpdateTime.Text = UpdatedTime.ToString("MM/dd HH:mm");}}
     private DateTime _updatedTime = DateTime.MinValue;
+
+
+    /* Initialize */
+    public MainPage()
+    {
+        InitializeComponent();
+        UpdatedTime = DateTime.Now;
+    }
 
 
     /* Event */
@@ -23,13 +33,5 @@ public partial class MainPage : ContentPage
             UpdatedTime = now;
             WeakReferenceMessenger.Default.Send(new Messages.InfomationUpdateMessage());
         }
-    }
-
-
-    /* Initialize */
-    public MainPage()
-    {
-        InitializeComponent();
-        UpdatedTime = DateTime.Now;
     }
 }

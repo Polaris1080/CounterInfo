@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns  ="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:CounterInfo.View"
              x:Class="CounterInfo.Pages.MainPage"
              NavigationPage.HasNavigationBar="false"
              >
     <ContentPage.Resources>
-        <x:Int32 x:Key="BodySpacing">16</x:Int32> 
+        <x:Int32 x:Key="BodySpacing">20</x:Int32> 
     </ContentPage.Resources>
     
     <ScrollView>
