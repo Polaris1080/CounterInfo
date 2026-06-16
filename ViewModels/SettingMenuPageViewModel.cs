@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CounterInfo.Messages;
 using CounterInfo.Repository;
+using CounterInfo.View;
 using System.Collections.ObjectModel;
 
 namespace CounterInfo.ViewModels
@@ -16,6 +17,13 @@ namespace CounterInfo.ViewModels
             get => _counterSetting;
             set => SetProperty(ref _counterSetting, value);
         }
+        /* Property */
+        /// <summary>情報源（表示用）</summary>
+        public ObservableCollection<CounterListWidgetData> Source { get => _source; private set => SetProperty(ref _source, value); }
+        private ObservableCollection<CounterListWidgetData> _source = [];
+
+
+        /* Initialize */
 
         public SettingMenuPageViewModel()
         {
@@ -47,6 +55,17 @@ namespace CounterInfo.ViewModels
                     CounterSetting.Add(new CounterSettingViewModel(item));
                 }
             });
+
+            Refresh();
+            if (!WeakReferenceMessenger.Default.IsRegistered<InfomationUpdateMessage>(this))
+            {
+                WeakReferenceMessenger.Default.Register<InfomationUpdateMessage>(this, (_, _) => Refresh());
+            }
+
+            void Refresh() => Task.Run(() => { Source = new(counterSettingRepository.GetItemsAsync().Result.OrderBy(x => x.Order).Select(x => new CounterListWidgetData() { ID = x.ID, Name = x.Name })); });
         }
     }
 }
+
+
+internal sealed record CounterListUpdateMessage;

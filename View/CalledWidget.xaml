@@ -34,7 +34,7 @@
                     <DataTemplate x:DataType="x:Int32">
                         <Border BackgroundColor="{StaticResource Tertiary}" StrokeThickness="0"
                                 HeightRequest="30" WidthRequest="90" Margin="4,0,4,4">
-                            <Label Text="{Binding, Mode=OneWay}"/>
+                            <Label Text="{Binding}"/>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
