@@ -2,15 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CounterInfo.Pages.SettingPage"
-             Title="SettingPage">
+             NavigationPage.HasNavigationBar="false">
+    
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
+            <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="戻る" ImageSource="arrow_back_icon_white.png" ContentLayout="Left" HorizontalOptions="Start"/>
-                <Label Text="設定" FontSize="24"
-                           TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                <Button Text="保存" ImageSource="save_icon_white.png" ContentLayout="Right" HorizontalOptions="End"
-                        Command="{Binding ReloadCommand}"/>
+                <Button Text="戻る" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"
+                        Clicked="BackButtonClicked"       HorizontalOptions="Start"/>
+                <Label  Text="設定" FontSize="24"
+                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                <Button Text="保存" ContentLayout="Right" ImageSource="save_icon_white.png"
+                        Clicked="SaveButtonClicked"       HorizontalOptions="End"/>
             </Grid>
 
             <VerticalStackLayout>

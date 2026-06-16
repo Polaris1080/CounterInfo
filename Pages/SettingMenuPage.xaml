@@ -10,15 +10,17 @@
     <ContentPage.BindingContext>
         <viewModels:SettingMenuPageViewModel />
     </ContentPage.BindingContext>
+    
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="戻る" ImageSource="arrow_back_icon_white.png" ContentLayout="Left" HorizontalOptions="Start" Clicked="OnReturnButtonClicked" />
-                <Label Text="設定" FontSize="24"
-                           TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
-                <Button Text="保存" ImageSource="save_icon_white.png" ContentLayout="Right" HorizontalOptions="End"
-                        Command="{Binding ReloadCommand}"/>
+                <Button Text="戻る" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"
+                        Clicked="OnReturnButtonClicked"   HorizontalOptions="Start"/>
+                <Label  Text="設定" FontSize="24"
+                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                <Button Text="追加" ContentLayout="Right" ImageSource="add_icon_white.png"
+                        Clicked="OnAppendButtonClicked"   HorizontalOptions="End"/>
             </Grid>
             
             <!-- Body -->

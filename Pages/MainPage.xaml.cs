@@ -10,12 +10,10 @@ public partial class MainPage : ContentPage
 
 
     /* Event */
-    /// <summary>「設定」が押されたとき</summary>
     async void OnSettingButtonClicked(object? sender, EventArgs e)
     {
         await Navigation.PushAsync(new SettingMenuPage());
     }
-    /// <summary>「更新」が押されたとき</summary>
     async void OnReloadButtonClicked (object? sender, EventArgs e)
     {
         // 「分」が進んでいなければ更新しない
