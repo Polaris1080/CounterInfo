@@ -1,4 +1,6 @@
-﻿using CounterInfo.Repository;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
+using CounterInfo.Repository;
 using Microsoft.Extensions.Logging;
 
 namespace CounterInfo
@@ -14,7 +16,7 @@ namespace CounterInfo
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                }).UseMauiCommunityToolkit().UseMauiCommunityToolkitCore();
 
             builder.Services.AddSingleton<CounterInfoRepository>();
 

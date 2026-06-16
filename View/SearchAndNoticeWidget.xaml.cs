@@ -1,5 +1,10 @@
+
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -10,10 +15,10 @@ namespace CounterInfo.View;
 
 public partial class SearchAndNoticeWidget : ContentView
 {
-	public SearchAndNoticeWidget()
-	{
-		InitializeComponent();
-	}
+    public SearchAndNoticeWidget()
+    {
+        InitializeComponent();
+    }
 }
 
 
@@ -59,10 +64,17 @@ public class SearchAndNoticeWidgetViewModel : ObservableObject
     {
         if (int.TryParse(Search, out int re))
         {
-            var t1 = await counterInfoRepository.GetItemAsync(re);
-            Status = t1.Called ? "呼ばれました" : "まだです";
+            var item = await counterInfoRepository.GetItemAsync(re);
+            Status = item switch {
+                null => "発券しておりません。",
+                CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch {
+                    (null,    _,     _) => "不具合が発生しています！",
+                    (   _, null,     _) => "順番待ちです。",
+                    (   _,    _,  true) => "呼び出し時に不在でした…",
+                    (   _,    _, false) => "既に対応しています。"
+                },
+            };
         }
-        Debug.WriteLine("done");
     }
     async Task AppendNotice() { }
 }
