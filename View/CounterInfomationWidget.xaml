@@ -1,26 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView xmlns  ="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:self="clr-namespace:CounterInfo.View"
+             xmlns:self ="clr-namespace:CounterInfo.View"
              xmlns:model="clr-namespace:CounterInfo.Models"
-             x:Class="CounterInfo.View.CounterInfomationWidget"
+             x:Class   ="CounterInfo.View.CounterInfomationWidget"
              x:DataType="self:CounterInfomationWidgetViewModel">
     <ContentView.BindingContext>
         <self:CounterInfomationWidgetViewModel/>
     </ContentView.BindingContext>
+    <ContentView.Resources>
+        <ColumnDefinitionCollection x:Key="ColDefinition">
+            <ColumnDefinition Width= "*"/>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="75"/>
+        </ColumnDefinitionCollection>
+        <RowDefinitionCollection    x:Key="RowDefinition">
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+        </RowDefinitionCollection>
+        <Style TargetType="Grid">
+            <Setter Property="BackgroundColor" Value="{StaticResource Gray300Brush}"/>
+            <Setter Property=   "RowSpacing"   Value="1"/>
+            <Setter Property="ColumnSpacing"   Value="1"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{StaticResource Gray500}"     />
+            <Setter Property="Stroke"          Value="{StaticResource Gray500Brush}"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+        </Style>
+    </ContentView.Resources>
 
-    <VerticalStackLayout HorizontalOptions="Center">
-        <CollectionView ItemsSource="{Binding Source}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:CounterInfoData">
-                    <HorizontalStackLayout>
-                        <Label Text="{Binding Detail}" FontAttributes="Bold" />
-                        <Label Grid.Column="1" Text="{Binding Waiting}" />
-                        <Label Grid.Column="2" Text="{Binding Number}" HorizontalTextAlignment="End" />
-                        <Label Grid.Column="3" Text="{Binding Estimate}" HorizontalTextAlignment="End" />
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+    <Border>
+        <VerticalStackLayout HorizontalOptions="Center">
+            <Border>
+                <Grid ColumnDefinitions="{StaticResource ColDefinition}" RowDefinitions="{StaticResource RowDefinition}">
+                    <Grid.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                            <Setter Property=  "VerticalTextAlignment" Value="Center"/>
+                            <Setter Property="BackgroundColor" Value= "{StaticResource Secondary}"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="受付内容"             />
+                    <Label Grid.Row="0" Grid.Column="1"                  Text="待ち人数"             />
+                    <Label Grid.Row="1" Grid.Column="1"                  Text="受付番号"             />
+                    <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="想定待ち&#xa;時間(分)"/>
+                </Grid>            
+            </Border>
+            <CollectionView ItemsSource="{Binding Source}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:CounterInfoData">
+                        <Border>
+                            <Grid ColumnDefinitions="{StaticResource ColDefinition}" RowDefinitions="{StaticResource RowDefinition}">
+                                <Grid.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="16" />
+                                        <Setter Property="Padding"  Value="5,0"/>
+                                        <Setter Property="BackgroundColor"       Value="{StaticResource White}"/>
+                                        <Setter Property="VerticalTextAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+
+                                <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalTextAlignment="Start"  Text="{Binding   Detail}"/>
+                                <Label Grid.Row="0" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding  Waiting}"/>
+                                <Label Grid.Row="1" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding   Number}"/>
+                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalTextAlignment="Center" Text="{Binding Estimate}"/>
+                            </Grid>                        
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>        
+    </Border>
+
 </ContentView>

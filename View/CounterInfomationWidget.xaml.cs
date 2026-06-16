@@ -4,7 +4,6 @@ using CounterInfo.Messages;
 using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Collections.ObjectModel;
-
 namespace CounterInfo.View;
 
 
