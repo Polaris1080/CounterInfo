@@ -81,6 +81,9 @@
 	  <Compile Update="View\CounterListWidget.xaml.cs">
 	    <DependentUpon>CounterListWidget.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\NumberSearchWidget.xaml.cs">
+	    <DependentUpon>NumberSearchWidget.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -99,7 +102,7 @@
 	  <MauiXaml Update="View\CalledWidget.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SearchAndNoticeWidget.xaml">
+	  <MauiXaml Update="View\NumberSearchWidget.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

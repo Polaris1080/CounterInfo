@@ -31,7 +31,7 @@
 
             <!-- Body -->
             <VerticalStackLayout Spacing="{StaticResource Key=BodySpacing}" Padding="{StaticResource Key=BodySpacing}">
-                <view:SearchAndNoticeWidget/>
+                <view:NumberSearchWidget/>
                 <view:CounterInfomationWidget/>
                 <view:CalledWidget/>
             </VerticalStackLayout>
