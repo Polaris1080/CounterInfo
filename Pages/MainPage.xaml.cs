@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using CounterInfo.Messages.MainPage;
 namespace CounterInfo.Pages;
 
 
@@ -34,7 +35,7 @@ public partial class MainPage : ContentPage
         if (now.Hour > UpdatedTime.Hour || now.Minute > UpdatedTime.Minute)
         {
             UpdatedTime = now;
-            WeakReferenceMessenger.Default.Send(new Messages.InfomationUpdateMessage());
+            WeakReferenceMessenger.Default.Send(new InfomationUpdateMessage());
         }
     }
 }

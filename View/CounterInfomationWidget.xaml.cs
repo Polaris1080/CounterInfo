@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using CounterInfo.Messages;
+using CounterInfo.Messages.MainPage;
 using CounterInfo.Models;
 using CounterInfo.Repository;
 using System.Collections.ObjectModel;
