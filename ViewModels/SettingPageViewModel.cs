@@ -11,9 +11,18 @@ namespace CounterInfo.ViewModels
 {
     public class SettingPageViewModel : ObservableObject
     {
+        public bool ChangeMode
+        {
+            get => _changeMode; set => SetProperty(ref _changeMode, value);
+        }
+        private bool _changeMode = false;
+
+
+        public Visibility AppendModeVisible => ChangeMode ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility ChangeModeVisible => !ChangeMode ? Visibility.Visible : Visibility.Collapsed;
 
         public int ID { get => _id; set => SetProperty(ref _id, value); }
-        private int _id;
+        private int _id = 0;
 
 
         public string Name

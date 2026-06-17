@@ -27,8 +27,13 @@
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
-                <Button Text="戻る" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"
-                        Clicked="BackButtonClicked"       HorizontalOptions="Start"/>                
+                <VerticalStackLayout HorizontalOptions="Start">
+                    <Button Text="戻るa" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"  IsVisible="{Binding AppendModeVisible}"
+                            Clicked="BackButtonClicked"/>
+                    <Button Text="戻るc" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"  IsVisible="{Binding ChangeModeVisible}"
+                            Clicked="ReturnButtonClicked"/>
+
+                </VerticalStackLayout>            
                 <Label  Text="設定" FontSize="24"
                         TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>                
                 <Button Text="保存" ContentLayout="Right" ImageSource="save_icon_white.png"
@@ -38,7 +43,7 @@
             <VerticalStackLayout>
                 <Label Text="窓口Ａ"/>
                 <Label Text="名称"/>
-                <Entry Placeholder="" />
+                <Entry Text="{Binding Name}"/>
                 <BoxView HeightRequest="2" Margin="0,9"/>
                 <Label Text="確率"/>
                 <Stepper Minimum="0" Maximum="100" Increment="1" />

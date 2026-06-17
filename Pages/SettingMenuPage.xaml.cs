@@ -17,11 +17,11 @@ public partial class SettingMenuPage : ContentPage
 
         if (!WeakReferenceMessenger.Default.IsRegistered<OpenSettingPageMessage>(this))
         {
-            WeakReferenceMessenger.Default.Register<OpenSettingPageMessage>(this, (_, _) => OpenSettingPage());
+            WeakReferenceMessenger.Default.Register<OpenSettingPageMessage>(this, (_, message) => OpenSettingPage(message.Value));
         }
 
-        void OpenSettingPage(){
-            Navigation.PushAsync(new SettingPage());
+        void OpenSettingPage(int? id){
+            Navigation.PushAsync(new SettingPage(id));
         }
     }
 
@@ -33,7 +33,7 @@ public partial class SettingMenuPage : ContentPage
     }
     async void OnAppendButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SettingAppendPage());
+        await Navigation.PushAsync(new SettingPage(null));
     }
 }
 
