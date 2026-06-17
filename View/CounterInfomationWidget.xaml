@@ -43,10 +43,10 @@
                         </Style>
                     </Grid.Resources>
 
-                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="受付内容"             />
-                    <Label Grid.Row="0" Grid.Column="1"                  Text="待ち人数"             />
-                    <Label Grid.Row="1" Grid.Column="1"                  Text="受付番号"             />
-                    <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="想定待ち&#xa;時間(分)"/>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="受付内容"         />
+                    <Label Grid.Row="0" Grid.Column="1"                  Text="待ち人数"         />
+                    <Label Grid.Row="1" Grid.Column="1"                  Text="受付番号"         />
+                    <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Text="想定&#xa;待ち時間"/>
                 </Grid>            
             </Border>
             <CollectionView ItemsSource="{Binding Source, Mode=OneWay}">
@@ -66,7 +66,7 @@
                                 <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalTextAlignment="Start"  Text="{Binding   Detail, Mode=OneWay}"/>
                                 <Label Grid.Row="0" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding  Waiting, Mode=OneWay}"/>
                                 <Label Grid.Row="1" Grid.Column="1"                  HorizontalTextAlignment="End"    Text="{Binding   Number, Mode=OneWay}"/>
-                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalTextAlignment="Center" Text="{Binding Estimate, Mode=OneWay}"/>
+                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" HorizontalTextAlignment="Center" Text="{Binding Estimate, Mode=OneWay, StringFormat='{}{0:mm:ss}'}"/>
                             </Grid>                        
                         </Border>
                     </DataTemplate>

@@ -17,5 +17,5 @@ public sealed record CounterInfoData
 
     /// <summary>想定待ち時間(Estimated waiting time)単位：分</summary>
     [Column("estimate")]
-    public int    Estimate { get; set; }
+    public DateTime    Estimate { get; set; }
 }

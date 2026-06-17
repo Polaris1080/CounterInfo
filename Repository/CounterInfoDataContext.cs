@@ -12,10 +12,10 @@ class CounterInfoDataContext
         SELECT (SELECT CS.name  FROM CounterInfo as CI WHERE CI.counter = CS.id)                            as detail,
                (SELECT count(*) FROM CounterInfo as CI WHERE CI.counter = CS.id and CI.recept_time is null) as waiting,
                (SELECT CI.id    FROM CounterInfo as CI WHERE CI.counter = CS.id ORDER by CI.id DESC)        as number,
-               (SELECT round(avg(recept_time - issue_time) / 60) FROM CounterInfo as CI
+               (SELECT recept_time - issue_time FROM CounterInfo as CI
                        WHERE CI.counter = CS.id      and
                              recept_time is not null and
                              recept_time > strftime('%s', 'now', '-1 hour'))                                as estimate
         FROM   CounterSetting as CS
-     """);
+     """);//(SELECT round(avg(recept_time - issue_time) / 60) FROM CounterInfo as CI
 }
