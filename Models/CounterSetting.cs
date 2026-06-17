@@ -12,4 +12,9 @@ public sealed record CounterSetting
 
     [Column("name")]
     public string Name { get; set; } = "";
+
+    [Column("issue_interval")]
+    public int IssueInterval { get; set; } = 3;
+    [Column("recept_interval")]
+    public int ReceptInterval { get; set; } = 2;
 }

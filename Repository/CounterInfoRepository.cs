@@ -62,5 +62,15 @@ namespace CounterInfo.Repository
             await Init();
             return await database!.DeleteAsync(item);
         }
+
+        public async Task ReceptAsync()
+        {
+            await Init();
+            if (await database!.Table<CounterInfomation>().Where(t => t.ReceptTime == null).FirstOrDefaultAsync() is CounterInfomation ci)
+            {
+                ci.ReceptTime = DateTime.Now;
+                await database!.UpdateAsync(ci);
+            }
+        }
     }
 }

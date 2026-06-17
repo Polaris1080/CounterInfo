@@ -11,13 +11,16 @@ public partial class MainPage : ContentPage
     private DateTime _updatedTime = DateTime.MinValue;
 
 
+    /* Value */
+    private readonly RealityMock realityMock = RealityMock.GetInstance();
+
+
     /* Initialize */
     public MainPage()
     {
         InitializeComponent();
         UpdatedTime = DateTime.Now;
     }
-
 
     /* Event */
     async void OnSettingButtonClicked(object? sender, EventArgs e)

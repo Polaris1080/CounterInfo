@@ -16,8 +16,8 @@ namespace CounterInfo.Models
         [Column("counter")]	
         public int Counter { get; set; }
         /// <summary>発行時刻</summary>
-        [Column("issue_time")] 
-        public DateTime? IssueTime { get; set; }
+        [Column("issue_time")]
+        public DateTime? IssueTime { get; set; } = DateTime.Now;
         /// <summary>受付時刻</summary>
         [Column("recept_time")]
         public DateTime? ReceptTime { get; set; }
