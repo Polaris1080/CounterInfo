@@ -17,39 +17,56 @@ public partial class NumberSearchWidget : ContentView
 
 
 
-public class NumberSearchWidgetViewModel : ObservableObject
+public partial class NumberSearchWidgetViewModel : ObservableObject
 {
-    /* Property */
-    /// <summary>入力内容</summary>
-    public  string Search {get => _search;          set => SetProperty(ref _search, value);}
-    /// <summary>検索結果</summary>
-    public  string Status {get => _status;  private set => SetProperty(ref _status, value);}
-    private string _search = "", _status = "検索待機中…";
+    const int NumberMin = 1, NumberMax = 9999;
 
 
-    /* Initialize */
-    public NumberSearchWidgetViewModel()
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(SearchButtonEnable))]
+    public partial string? Query { get; set; }
+    public bool SearchButtonEnable => int.TryParse(Query, out int parsed) && NumberMin <= parsed && parsed <= NumberMax;
+
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(Result))]
+    private partial States State { get; set; }
+    public string Result => State switch {
+        States.Waiting => "検索待機中…",
+        States.UnIssue => "発券しておりません。",
+        States.Issue   => "順番待ちです。",
+        States.Recept  => "呼び出し時に不在でした…",
+        States.Called  => "既に対応しています。",
+        States.Error   => "不具合が発生しています！",
+        _ => throw new NotImplementedException(),
+    };
+
+    [RelayCommand]
+    private async Task Search()
     {
-        // Command
-        SearchCommand = new AsyncRelayCommand(SearchInfo);
-    }
-
-
-    /* Event */
-    public  ICommand   SearchCommand { get; }
-    private async Task SearchInfo()
-    {
-        if (int.TryParse(Search, out int parsed) && (1 <= parsed && parsed <= 9999))
+        if (SearchButtonEnable)
         {
-            Status = await new CounterInfoRepository().GetItemAsync(parsed) switch {
-                null => "発券しておりません。",
+            State = await new CounterInfoRepository().GetItemAsync(int.Parse(Query!)) switch {
+                null => States.UnIssue,
                 CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch {
-                    (null,    _,     _) => "不具合が発生しています！",
-                    (   _, null,     _) => "順番待ちです。",
-                    (   _,    _,  true) => "呼び出し時に不在でした…",
-                    (   _,    _, false) => "既に対応しています。"
+                    (null,    _,     _) => States.UnIssue,
+                    (   _, null,     _) => States.Issue,
+                    (   _,    _,  true) => States.Called,
+                    (   _,    _, false) => States.Recept
                 },
             };
         }
+    }
+    private enum States
+    {
+        /// <summary>待機中</summary>
+        Waiting,
+        /// <summary>未発券</summary>
+        UnIssue,
+        /// <summary>発券済</summary>
+        Issue,
+        /// <summary>呼出済</summary>
+        Recept,
+        /// <summary>対応済</summary>
+        Called,
+        /// <summary>エラー</summary>
+        Error
     }
 }

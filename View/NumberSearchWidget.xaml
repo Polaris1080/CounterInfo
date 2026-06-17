@@ -19,8 +19,8 @@
 
     <Border Stroke="{StaticResource Gray300Brush}" StrokeThickness="2" HorizontalOptions="Center">
         <VerticalStackLayout BackgroundColor="{StaticResource Secondary}" Padding="10,10,2,8" Spacing="8">
-            <HorizontalStackLayout>                
-                <Entry Keyboard="Numeric" Text="{Binding Search, Mode=TwoWay}" Placeholder="受付番号"
+            <HorizontalStackLayout>
+                <Entry Keyboard="Numeric" Text="{Binding Query, Mode=TwoWay}" Placeholder="受付番号"
                        BackgroundColor="White" WidthRequest="100" Margin="0,0,2,0">
                     <Entry.Behaviors>
                         <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged"
@@ -28,10 +28,10 @@
                             MinimumValue="1" MaximumValue="9999" MaximumDecimalPlaces="0" />
                         </Entry.Behaviors>
                     </Entry>
-                <Button Text="検索" ContentLayout="Left" ImageSource="search_icon_white.png"
-                        Command="{Binding SearchCommand}" VerticalOptions="Center"/>                
+                <Button Text="検索" ContentLayout="Left" ImageSource="search_icon_white.png" VerticalOptions="Center"
+                        Command="{Binding SearchCommand}" IsEnabled="{Binding SearchButtonEnable}"/>                
             </HorizontalStackLayout>
-            <Label Text="{Binding Status, Mode=OneWay}"/>
+            <Label Text="{Binding Result, Mode=OneWay}"/>
         </VerticalStackLayout>        
     </Border>
 </ContentView>
