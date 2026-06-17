@@ -78,6 +78,9 @@
 	  <Compile Update="Pages\SettingMenuPage.xaml.cs">
 	    <DependentUpon>SettingMenuPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\SettingAppdenPage.xaml.cs">
+	    <DependentUpon>SettingAppdenPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\NumberSearchWidget.xaml.cs">
 	    <DependentUpon>NumberSearchWidget.xaml</DependentUpon>
 	  </Compile>
@@ -85,6 +88,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\SettingMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SettingAppdenPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SettingPage.xaml">

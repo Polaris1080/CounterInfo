@@ -33,7 +33,7 @@ public partial class SettingMenuPage : ContentPage
     }
     async void OnAppendButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SettingPage());
+        await Navigation.PushAsync(new SettingAppendPage());
     }
 }
 

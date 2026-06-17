@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CounterInfo.ViewModels
 {
-    internal class CounterSettingViewModel : ObservableObject
+    public class SettingPageViewModel : ObservableObject
     {
 
         public int ID { get => _id; set => SetProperty(ref _id, value); }
@@ -26,10 +26,7 @@ namespace CounterInfo.ViewModels
         public int Order { get => _order; set => SetProperty(ref _order, value); }
         private int _order;
 
-        public CounterSettingViewModel(CounterSetting cs) {
-            ID = cs.ID;
-            Name = cs.Name;
-            Order = cs.Order;
+        public SettingPageViewModel() {
 
             DeleteCommand =  new AsyncRelayCommand(Delete);
         }

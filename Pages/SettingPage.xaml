@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CounterInfo.Pages.SettingPage"
+             xmlns:vm="clr-namespace:CounterInfo.ViewModels"
+             x:Class   ="CounterInfo.Pages.SettingPage"
+             x:DataType="vm:SettingPageViewModel"
              NavigationPage.HasNavigationBar="false">
-    
+    <ContentPage.BindingContext>
+        <vm:SettingPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{StaticResource Gray600}"/>
+            <Setter Property="Stroke" Value="{StaticResource Gray600Brush}"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4"/>
+            <!--<Setter Property="TextColor" Value="{StaticResource White}"/>-->
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
     <ScrollView>
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
                 <Button Text="戻る" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"
-                        Clicked="BackButtonClicked"       HorizontalOptions="Start"/>
+                        Clicked="BackButtonClicked"       HorizontalOptions="Start"/>                
                 <Label  Text="設定" FontSize="24"
-                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>                
                 <Button Text="保存" ContentLayout="Right" ImageSource="save_icon_white.png"
                         Clicked="SaveButtonClicked"       HorizontalOptions="End"/>
             </Grid>
@@ -20,17 +39,22 @@
                 <Label Text="窓口Ａ"/>
                 <Label Text="名称"/>
                 <Entry Placeholder="" />
+                <BoxView HeightRequest="2" Margin="0,9"/>
                 <Label Text="確率"/>
                 <Stepper Minimum="0" Maximum="100" Increment="1" />
                 <Label Text="％"/>
+                <BoxView HeightRequest="2" Margin="0,9"/>
                 <Label Text="時間"/>
                 <TimePicker />
                 <TimePicker />
+                <BoxView HeightRequest="2" Margin="0,9"/>
                 <Label Text="間隔"/>
                 <Stepper Minimum="1" Maximum="60" Increment="1" />
+                <BoxView HeightRequest="2" Margin="0,9"/>
                 <Label Text="範囲"/>
                 <Entry Placeholder="" />
                 <Picker Title="" />
+                <BoxView HeightRequest="2" Margin="0,9"/>
                 <HorizontalStackLayout>
                     <Button ImageSource="remove_icon_white.png" />
                 </HorizontalStackLayout>

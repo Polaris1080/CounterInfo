@@ -41,6 +41,13 @@ namespace CounterInfo.Repository
             return await database!.DeleteAsync(item);
         }
 
+
+        public async Task<int> GetCountAsync()
+        {
+            await Init();
+            return await database!.Table<CounterSetting>().CountAsync();
+        }
+
         public async Task ChangeOrderAsync(int id)
         {
             await Init();

@@ -1,20 +1,15 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
+namespace CounterInfo.Models;
 
-namespace CounterInfo.Models
+public sealed record CounterSetting
 {
-    public class CounterSetting
-    {
-        [PrimaryKey, AutoIncrement]
-        [Column("id")]
-        public int ID { get; set; }
+    [PrimaryKey, AutoIncrement]
+    [Column("id")]
+    public int ID { get; set; }
 
-        [Column("order")]
-        public int Order { get; set; }
+    [Column("order")]
+    public int Order { get; set; }
 
-        [Column("name")]
-        public string Name { get; set; } = "";
-    }
+    [Column("name")]
+    public string Name { get; set; } = "";
 }
