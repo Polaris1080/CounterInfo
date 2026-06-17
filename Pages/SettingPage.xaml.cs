@@ -19,7 +19,7 @@ public partial class SettingPage : ContentPage
     async void SaveButtonClicked(object? sender, EventArgs e)
     {
         // TODO : 保存処理
-        WeakReferenceMessenger.Default.Send(new CounterListUpdateMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.SettingCounterListUpdateMessage());
         await Navigation.PopAsync();
     }
 }

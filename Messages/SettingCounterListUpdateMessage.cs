@@ -1,0 +1,2 @@
+﻿namespace CounterInfo.Messages;
+internal sealed record SettingCounterListUpdateMessage;

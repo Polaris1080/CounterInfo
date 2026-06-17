@@ -78,9 +78,6 @@
 	  <Compile Update="Pages\SettingMenuPage.xaml.cs">
 	    <DependentUpon>SettingMenuPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\CounterListWidget.xaml.cs">
-	    <DependentUpon>CounterListWidget.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="View\NumberSearchWidget.xaml.cs">
 	    <DependentUpon>NumberSearchWidget.xaml</DependentUpon>
 	  </Compile>
@@ -91,9 +88,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SettingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\CounterListWidget.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\CounterInfomationWidget.xaml">
