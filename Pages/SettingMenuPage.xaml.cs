@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using CounterInfo.Messages.MainPage;
 using CounterInfo.Messages.SettingMenuPage;
 using CounterInfo.Repository;
 using CounterInfo.ViewModels;
@@ -36,12 +35,12 @@ internal partial class SettingMenuPageViewModel : ObservableObject
     public SettingMenuPageViewModel()
     {
         Refresh();
-        if (!WeakReferenceMessenger.Default.IsRegistered<InfomationUpdateMessage>(this))
-        {
-             WeakReferenceMessenger.Default.Register    <InfomationUpdateMessage>(this, (_, _) => Refresh());
+        if (!WeakReferenceMessenger.Default.IsRegistered<SettingCounterListUpdateMessage>(this)) {
+             WeakReferenceMessenger.Default.Register    <SettingCounterListUpdateMessage>(this, (_, _) => Refresh());
         }
         void Refresh() => Task.Run(async () => {
-            Source = [..(await repository.GetItemsAsync()).OrderBy(o => o.Order).Select(s => new SettingMenuCounterHeadingViewModel(s))];
+            var setting = (await repository.GetItemsAsync()).OrderBy(o => o.Order);
+            Source = [..setting.Select(s => new SettingMenuCounterHeadingViewModel(s, setting.Count() - 1))];
         });
     }
 }

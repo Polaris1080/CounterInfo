@@ -53,13 +53,13 @@ public partial class SettingPage : ContentPage
     async void SaveButtonClicked(object? sender, EventArgs e)
     {
         // TODO : 保存処理
-        WeakReferenceMessenger.Default.Send(new Messages.SettingCounterListUpdateMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.SettingMenuPage.SettingCounterListUpdateMessage());
         await Navigation.PopAsync();
     }
     async void DeleteButtonClicked(object? sender, EventArgs e)
     {
         // TODO : 保存処理
-        WeakReferenceMessenger.Default.Send(new Messages.SettingCounterListUpdateMessage());
+        WeakReferenceMessenger.Default.Send(new Messages.SettingMenuPage.SettingCounterListUpdateMessage());
         await Navigation.PopAsync();
     }
 

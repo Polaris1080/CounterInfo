@@ -18,8 +18,7 @@ public partial class NumberSearchWidget : ContentView
 
 public partial class NumberSearchWidgetViewModel : ObservableObject
 {
-    const int NumberMin = 1, NumberMax = 9999;
-
+    private const int NumberMin = 1, NumberMax = 9999;
 
     [ObservableProperty][NotifyPropertyChangedFor(nameof(SearchButtonEnable))]
     public partial string? Query { get; set; }

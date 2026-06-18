@@ -44,9 +44,9 @@
                                         Margin="4,0,4,4">
                                     <Label Text="{Binding Name}"/>
                                 </Border>
-                                <Button ImageSource="up_icon_white.png" Command="{Binding UpCommand}"/>
-                                <Button ImageSource="down_icon_white.png"/>
-                                <Button ImageSource="remove_icon_white.png" Command="{Binding SetCommand}"/>
+                                <Button ImageSource=    "up_icon_white.png" Command="{Binding      UpCommand}" IsEnabled="{Binding   UpButtonEnable}"/>
+                                <Button ImageSource=  "down_icon_white.png" Command="{Binding    DownCommand}" IsEnabled="{Binding DownButtonEnable}"/>
+                                <Button ImageSource="remove_icon_white.png" Command="{Binding SettingCommand}"/>
                             </HorizontalStackLayout>
                             <BoxView HeightRequest="2" Margin="4,0" Background="{StaticResource Gray300Brush}"/>
                         </VerticalStackLayout>

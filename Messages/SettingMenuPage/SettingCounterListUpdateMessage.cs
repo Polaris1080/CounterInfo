@@ -1,2 +1,2 @@
-﻿namespace CounterInfo.Messages;
+﻿namespace CounterInfo.Messages.SettingMenuPage;
 internal sealed record SettingCounterListUpdateMessage;

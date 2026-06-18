@@ -2,49 +2,40 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CounterInfo.Messages.SettingMenuPage;
-using CounterInfo.Repository;
-using System.Windows.Input;
+
+
 
 namespace CounterInfo.ViewModels
 {
-    class SettingMenuCounterHeadingViewModel : ObservableObject
+    internal partial class SettingMenuCounterHeadingViewModel(Models.CounterSetting cs, int orderMax) : ObservableObject
     {
-        CounterSettingRepository counterSettingRepository = new();
+        private const    int OrderMin = 0;
+        private readonly int order    = cs.Order;
+        private readonly int orderMax = orderMax;
+        private readonly Repository.CounterSettingRepository repository = new();
 
-        public int ID { get;  }
-        public string Name { get;  } = "";
-        private int order;
+        [ObservableProperty] public partial int     ID   { get; private set; } = cs.ID;
+        [ObservableProperty] public partial string? Name { get; private set; } = cs.Name;
 
-        public SettingMenuCounterHeadingViewModel(Models.CounterSetting cs)
+        public bool   UpButtonEnable => order > OrderMin;
+        public bool DownButtonEnable => order < orderMax;
+
+        [RelayCommand] private async Task OnUp()
         {
-            // Param
-            ID = cs.ID;
-            Name = cs.Name;
-            order = cs.Order;
-
-            // Command
-              UpCommand = new AsyncRelayCommand(OrderUp);
-             SetCommand = new AsyncRelayCommand(Setting);
-            DownCommand = new AsyncRelayCommand(OrderDown);
-        }
-
-        public ICommand   UpCommand { get; }
-        public ICommand  SetCommand { get; }
-        public ICommand DownCommand { get; }
-
-        private async Task OrderUp() {
-            if (order > 0)
+            if (UpButtonEnable)
             {
-                await counterSettingRepository.ChangeOrderAsync(1);
-                //Message
-            }            
+                await repository.ChangeOrderAsync(ID);                                      // 順番を変更
+                WeakReferenceMessenger.Default.Send(new SettingCounterListUpdateMessage()); // リスト更新
+            }
         }
-        private async Task OrderDown() {
-            
-        }
-        private async Task Setting()
+        [RelayCommand] private async Task OnDown()
         {
-            WeakReferenceMessenger.Default.Send(new OpenSettingPageMessage(ID));
+            if (DownButtonEnable)
+            {
+                await repository.ChangeOrderAsync(ID,true);                                 // 順番を変更
+                WeakReferenceMessenger.Default.Send(new SettingCounterListUpdateMessage()); // リスト更新
+            }
         }
+        [RelayCommand] private async Task Setting() => WeakReferenceMessenger.Default.Send(new OpenSettingPageMessage(ID));
     }
 }

@@ -1,8 +1,5 @@
 ﻿using CounterInfo.Models;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CounterInfo.Repository
 {
@@ -14,7 +11,7 @@ namespace CounterInfo.Repository
         {
             if (database is not null) return;
             database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-            var result = await database.CreateTableAsync<CounterSetting>();
+            _ = await database.CreateTableAsync<CounterSetting>();
         }
 
         public async Task<List<CounterSetting>> GetItemsAsync()
@@ -41,21 +38,26 @@ namespace CounterInfo.Repository
             return await database!.DeleteAsync(item);
         }
 
-
         public async Task<int> GetCountAsync()
         {
             await Init();
             return await database!.Table<CounterSetting>().CountAsync();
         }
 
-        public async Task ChangeOrderAsync(int id)
+        public async Task ChangeOrderAsync(int id, bool down = false)
         {
             await Init();
             await database!.RunInTransactionAsync(tran => {
-                // database calls inside the transaction
-                var t1 = tran.Table<CounterSetting>().Where(i => i.Order == id).FirstOrDefault();
-                t1.Order++;
-                tran.Update(t1);
+                if (tran.Table<CounterSetting>().Where(w => w.ID == id).FirstOrDefault() is CounterSetting from)
+                {
+                    from.Order += down ? 1 : -1; 
+                    if (tran.Table<CounterSetting>().Where(w => w.Order == from.Order).FirstOrDefault() is CounterSetting to)
+                    {
+                        to.Order -= down ? 1 : -1;
+                        tran.Update(from);
+                        tran.Update(to);
+                    }                  
+                }
             });
         }
     }
