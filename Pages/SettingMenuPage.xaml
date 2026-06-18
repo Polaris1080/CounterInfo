@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns  ="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm  ="clr-namespace:CounterInfo.ViewModels"
              xmlns:view="clr-namespace:CounterInfo.View"
              xmlns:self="clr-namespace:CounterInfo.Pages"
-             xmlns:model="clr-namespace:CounterInfo.Models"
-             xmlns:viewModels="clr-namespace:CounterInfo.ViewModels"
-             x:Class="CounterInfo.Pages.SettingMenuPage"
+             x:Class   ="CounterInfo.Pages.SettingMenuPage"
              x:DataType="self:SettingMenuPageViewModel"
-             NavigationPage.HasNavigationBar="false">
+             NavigationPage.HasBackButton   ="False"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
-        <self:SettingMenuPageViewModel />
+        <self:SettingMenuPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
-        <Style TargetType="Border">
-            <Setter Property="BackgroundColor" Value="{StaticResource Gray600}"/>
-            <Setter Property="Stroke" Value="{StaticResource Gray600Brush}"/>
-            <Setter Property="StrokeThickness" Value="2"/>
-        </Style>
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="4"/>
+            <Setter Property="FontSize"  Value="16"/>
+            <Setter Property="Padding"   Value="4"/>
             <Setter Property="TextColor" Value="{StaticResource White}"/>
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property=  "VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
         </Style>
     </ContentPage.Resources>
 
@@ -32,33 +27,31 @@
             <Grid BackgroundColor="{StaticResource Gray600}">
                 <Button Text="戻る" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"
                         Clicked="OnReturnButtonClicked"   HorizontalOptions="Start"/>
-                <Label  Text="設定" FontSize="24"
-                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                <Label  Text="設定" TextColor="{StaticResource White}" FontSize="24"
+                        HorizontalOptions="Center" VerticalTextAlignment="Center"/>
                 <Button Text="追加" ContentLayout="Right" ImageSource="add_icon_white.png"
                         Clicked="OnAppendButtonClicked"   HorizontalOptions="End"/>
             </Grid>
             
             <!-- Body -->
-            <VerticalStackLayout>
-                <!--<view:CounterListWidget/>-->
-                <VerticalStackLayout 
-                        BindableLayout.ItemsSource="{Binding Source, Mode=OneWay}"
-                        BackgroundColor="{StaticResource White}" Padding="4,10,4,0">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="viewModels:SettingCounterHeadingViewModel">
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Source, Mode=OneWay}" Padding="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SettingMenuCounterHeadingViewModel">
+                        <VerticalStackLayout>
                             <HorizontalStackLayout>
                                 <Border BackgroundColor="{StaticResource Tertiary}" StrokeThickness="0"
-                                    HeightRequest="30" WidthRequest="90"
-                                    Margin="4,0,4,4">
+                                        HeightRequest="30" WidthRequest="90"
+                                        Margin="4,0,4,4">
                                     <Label Text="{Binding Name}"/>
                                 </Border>
                                 <Button ImageSource="up_icon_white.png" Command="{Binding UpCommand}"/>
                                 <Button ImageSource="down_icon_white.png"/>
                                 <Button ImageSource="remove_icon_white.png" Command="{Binding SetCommand}"/>
                             </HorizontalStackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </VerticalStackLayout>
+                            <BoxView HeightRequest="2" Margin="4,0" Background="{StaticResource Gray300Brush}"/>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

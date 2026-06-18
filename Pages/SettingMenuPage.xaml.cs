@@ -1,54 +1,38 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using CounterInfo.Messages;
 using CounterInfo.Messages.MainPage;
+using CounterInfo.Messages.SettingMenuPage;
 using CounterInfo.Repository;
 using CounterInfo.ViewModels;
-using System.Collections.ObjectModel;
 namespace CounterInfo.Pages;
 
 
 
 public partial class SettingMenuPage : ContentPage
 {
-    /* Initialize */
     public SettingMenuPage()
 	{
 		InitializeComponent();
-
-        if (!WeakReferenceMessenger.Default.IsRegistered<OpenSettingPageMessage>(this))
-        {
-            WeakReferenceMessenger.Default.Register<OpenSettingPageMessage>(this, (_, message) => OpenSettingPage(message.Value));
+        if (!WeakReferenceMessenger.Default.IsRegistered<OpenSettingPageMessage>(this)) {
+             WeakReferenceMessenger.Default.    Register<OpenSettingPageMessage>(this, (_, message) => OpenSettingChangePage(message.Value));
         }
-
-        void OpenSettingPage(int? id){
-            Navigation.PushAsync(new SettingPage(id));
+        void OpenSettingChangePage(int? CounterId){
+            Navigation.PushAsync(new SettingPage(CounterId));
         }
     }
 
-
-    /* Event */
-    async void OnReturnButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
-    }
-    async void OnAppendButtonClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new SettingPage(null));
-    }
+    async void OnReturnButtonClicked(object? sender, EventArgs e) => await Navigation.PopAsync();
+    async void OnAppendButtonClicked(object? sender, EventArgs e) => WeakReferenceMessenger.Default.Send(new OpenSettingPageMessage(null));
 }
 
 
 
-internal class SettingMenuPageViewModel : ObservableObject
+internal partial class SettingMenuPageViewModel : ObservableObject
 {
-    /* Property */
-    /// <summary>情報源（表示用）</summary>
-    public  ObservableCollection<SettingCounterHeadingViewModel>  Source {get => _source;  private set => SetProperty(ref _source, value);}
-    private ObservableCollection<SettingCounterHeadingViewModel> _source = [];
+    private readonly CounterSettingRepository repository = new();
 
+    [ObservableProperty] public partial List<SettingMenuCounterHeadingViewModel>? Source {get; private set;}
 
-    /* Initialize */
     public SettingMenuPageViewModel()
     {
         Refresh();
@@ -56,13 +40,8 @@ internal class SettingMenuPageViewModel : ObservableObject
         {
              WeakReferenceMessenger.Default.Register    <InfomationUpdateMessage>(this, (_, _) => Refresh());
         }
-
-        void Refresh() => Task.Run(() => {
-            Source = new(new CounterSettingRepository()
-                .GetItemsAsync().Result
-                .OrderBy(x => x.Order)
-                .Select (x => new SettingCounterHeadingViewModel(x))
-            );
+        void Refresh() => Task.Run(async () => {
+            Source = [..(await repository.GetItemsAsync()).OrderBy(o => o.Order).Select(s => new SettingMenuCounterHeadingViewModel(s))];
         });
     }
 }

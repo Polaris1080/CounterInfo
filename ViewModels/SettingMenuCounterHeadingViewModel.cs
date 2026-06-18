@@ -1,16 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using CounterInfo.Pages;
+using CounterInfo.Messages.SettingMenuPage;
 using CounterInfo.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace CounterInfo.ViewModels
 {
-    class SettingCounterHeadingViewModel : ObservableObject
+    class SettingMenuCounterHeadingViewModel : ObservableObject
     {
         CounterSettingRepository counterSettingRepository = new();
 
@@ -18,7 +15,7 @@ namespace CounterInfo.ViewModels
         public string Name { get;  } = "";
         private int order;
 
-        public SettingCounterHeadingViewModel(Models.CounterSetting cs)
+        public SettingMenuCounterHeadingViewModel(Models.CounterSetting cs)
         {
             // Param
             ID = cs.ID;
@@ -47,7 +44,7 @@ namespace CounterInfo.ViewModels
         }
         private async Task Setting()
         {
-            WeakReferenceMessenger.Default.Send(new Messages.OpenSettingPageMessage(ID));
+            WeakReferenceMessenger.Default.Send(new OpenSettingPageMessage(ID));
         }
     }
 }
