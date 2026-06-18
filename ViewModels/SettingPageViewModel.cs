@@ -9,16 +9,11 @@ using System.Windows.Input;
 
 namespace CounterInfo.ViewModels
 {
-    public class SettingPageViewModel : ObservableObject
+    public partial class SettingPageViewModel : ObservableObject
     {
-        public bool ChangeMode
-        {
-            get => _changeMode; set => SetProperty(ref _changeMode, value);
-        }
-        private bool _changeMode = false;
-
-
-        public Visibility AppendModeVisible => ChangeMode ? Visibility.Visible : Visibility.Collapsed;
+        [ObservableProperty][NotifyPropertyChangedFor(nameof(AppendModeVisible))][NotifyPropertyChangedFor(nameof(ChangeModeVisible))]
+        public partial bool ChangeMode { get; set; }
+        public Visibility AppendModeVisible =>  ChangeMode ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ChangeModeVisible => !ChangeMode ? Visibility.Visible : Visibility.Collapsed;
 
         public int ID { get => _id; set => SetProperty(ref _id, value); }

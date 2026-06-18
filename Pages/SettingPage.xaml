@@ -9,18 +9,13 @@
         <vm:SettingPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
-        <Style TargetType="Border">
-            <Setter Property="BackgroundColor" Value="{StaticResource Gray600}"/>
-            <Setter Property="Stroke" Value="{StaticResource Gray600Brush}"/>
-            <Setter Property="StrokeThickness" Value="2"/>
-        </Style>
-        <Style TargetType="Label">
+        <!--<Style TargetType="Label">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
             <Setter Property="Padding" Value="4"/>
-            <!--<Setter Property="TextColor" Value="{StaticResource White}"/>-->
+            --><!--<Setter Property="TextColor" Value="{StaticResource White}"/>--><!--
             <Setter Property="VerticalTextAlignment" Value="Center"/>
-        </Style>
+        </Style>-->
     </ContentPage.Resources>
 
     <ScrollView>
@@ -28,16 +23,21 @@
             <!-- Header -->
             <Grid BackgroundColor="{StaticResource Gray600}">
                 <VerticalStackLayout HorizontalOptions="Start">
-                    <Button Text="戻るa" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"  IsVisible="{Binding AppendModeVisible}"
-                            Clicked="BackButtonClicked"/>
-                    <Button Text="戻るc" ContentLayout="Left"  ImageSource="arrow_back_icon_white.png"  IsVisible="{Binding ChangeModeVisible}"
-                            Clicked="ReturnButtonClicked"/>
-
+                    <Button Text="破棄" ContentLayout="Left" ImageSource="remove_icon_white.png"
+                            Clicked="BackButtonClicked"   IsVisible="{Binding AppendModeVisible}"
+                            BackgroundColor="{StaticResource Magenta}"/>
+                    <Button Text="戻る" ContentLayout="Left" ImageSource="arrow_back_icon_white.png"
+                            Clicked="ReturnButtonClicked" IsVisible="{Binding ChangeModeVisible}"/>
                 </VerticalStackLayout>            
-                <Label  Text="設定" FontSize="24"
-                        TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalTextAlignment="Center"/>                
-                <Button Text="保存" ContentLayout="Right" ImageSource="save_icon_white.png"
-                        Clicked="SaveButtonClicked"       HorizontalOptions="End"/>
+                <Label Text="設定" FontSize="24" TextColor="{StaticResource White}"
+                       HorizontalOptions="Center" VerticalTextAlignment="Center"/>
+                <VerticalStackLayout HorizontalOptions="End">
+                    <Button Text="保存" ContentLayout="Right" ImageSource="save_icon_white.png"
+                            Clicked="SaveButtonClicked"   IsVisible="{Binding AppendModeVisible}"/>
+                    <Button Text="削除" ContentLayout="Right" ImageSource="delete_icon_white.png"
+                            Clicked="DeleteButtonClicked" IsVisible="{Binding ChangeModeVisible}"
+                            BackgroundColor="{StaticResource Magenta}"/>
+                </VerticalStackLayout>
             </Grid>
 
             <VerticalStackLayout>

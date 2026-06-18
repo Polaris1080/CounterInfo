@@ -42,7 +42,7 @@ public partial class SettingPage : ContentPage
     {
         await Navigation.PopAsync();
     }
-    private async void ReturnButtonClicked(object sender, EventArgs e)
+    private async void ReturnButtonClicked(object? sender, EventArgs e)
     {
         if (await DisplayAlertAsync("保存","しますか","はい","いいえ"))
         {
@@ -56,6 +56,11 @@ public partial class SettingPage : ContentPage
         WeakReferenceMessenger.Default.Send(new Messages.SettingCounterListUpdateMessage());
         await Navigation.PopAsync();
     }
-
+    async void DeleteButtonClicked(object? sender, EventArgs e)
+    {
+        // TODO : 保存処理
+        WeakReferenceMessenger.Default.Send(new Messages.SettingCounterListUpdateMessage());
+        await Navigation.PopAsync();
+    }
 
 }

@@ -2,7 +2,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CounterInfo.Models;
 using CounterInfo.Repository;
-using System.Windows.Input;
 namespace CounterInfo.View;
 
 
