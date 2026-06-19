@@ -63,12 +63,14 @@ namespace CounterInfo.Repository
             return await database!.DeleteAsync(item);
         }
 
-        public async Task ReceptAsync()
+        public async Task ReceptAsync(int id, int absenceParcent)
         {
             await Init();
-            if (await database!.Table<CounterInfomation>().Where(t => t.ReceptTime == null).FirstOrDefaultAsync() is CounterInfomation ci)
+            if (await database!.Table<CounterInfomation>().Where(w => w.Counter == id).Where(t => t.ReceptTime == null).FirstOrDefaultAsync() is CounterInfomation ci)
             {
+                var rnd = new System.Random();
                 ci.ReceptTime = DateTime.Now;
+                ci.Called = rnd.Next(100) < absenceParcent - 1;
                 await database!.UpdateAsync(ci);
             }
         }
