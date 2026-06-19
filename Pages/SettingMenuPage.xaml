@@ -11,15 +11,6 @@
     <ContentPage.BindingContext>
         <self:SettingMenuPageViewModel/>
     </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        <Style TargetType="Label">
-            <Setter Property="FontSize"  Value="16"/>
-            <Setter Property="Padding"   Value="4"/>
-            <Setter Property="TextColor" Value="{StaticResource White}"/>
-            <Setter Property=  "VerticalTextAlignment" Value="Center"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-        </Style>
-    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
@@ -38,17 +29,22 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="vm:SettingMenuCounterHeadingViewModel">
                         <VerticalStackLayout>
-                            <HorizontalStackLayout>
-                                <Border BackgroundColor="{StaticResource Tertiary}" StrokeThickness="0"
-                                        HeightRequest="30" WidthRequest="90"
-                                        Margin="4,0,4,4">
-                                    <Label Text="{Binding Name}"/>
-                                </Border>
-                                <Button ImageSource=    "up_icon_white.png" Command="{Binding      UpCommand}" IsEnabled="{Binding   UpButtonEnable}"/>
-                                <Button ImageSource=  "down_icon_white.png" Command="{Binding    DownCommand}" IsEnabled="{Binding DownButtonEnable}"/>
-                                <Button ImageSource="remove_icon_white.png" Command="{Binding SettingCommand}"/>
-                            </HorizontalStackLayout>
-                            <BoxView HeightRequest="2" Margin="4,0" Background="{StaticResource Gray300Brush}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}"/>
+                                    <HorizontalStackLayout Grid.Column="1">
+                                    <HorizontalStackLayout.Resources>
+                                        <Style TargetType="Button"  BasedOn="{StaticResource Small}"/>
+                                    </HorizontalStackLayout.Resources>
+                                    <Button ImageSource=      "up_icon_white.png" Command="{Binding      UpCommand}" IsEnabled="{Binding   UpButtonEnable}"/>
+                                    <Button ImageSource=    "down_icon_white.png" Command="{Binding    DownCommand}" IsEnabled="{Binding DownButtonEnable}"/>
+                                    <Button ImageSource="settings_icon_white.png" Command="{Binding SettingCommand}"/>                                    
+                                </HorizontalStackLayout>
+                            </Grid>
+                            <BoxView HeightRequest="2" Margin="0,9" Background="{StaticResource Gray300Brush}"/>
                         </VerticalStackLayout>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

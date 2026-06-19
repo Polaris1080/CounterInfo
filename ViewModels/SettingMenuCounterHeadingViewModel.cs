@@ -15,7 +15,7 @@ namespace CounterInfo.ViewModels
         private readonly Repository.CounterSettingRepository repository = new();
 
         [ObservableProperty] public partial int     ID   { get; private set; } = cs.ID;
-        [ObservableProperty] public partial string? Name { get; private set; } = cs.Name;
+        [ObservableProperty] public partial string? Name { get; private set; } = cs.Name.Length > 10 ? $"{cs.Name.Substring(0,10)}…" : cs.Name;
 
         public bool   UpButtonEnable => order > OrderMin;
         public bool DownButtonEnable => order < orderMax;
