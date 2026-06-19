@@ -26,7 +26,7 @@ internal partial class CalledWidgetViewModel : ObservableObject
              WeakReferenceMessenger.Default.    Register<InfomationUpdateMessage>(this, (_, _) => Refresh());
         }
         void Refresh() => Task.Run(async () => {
-            Source = [.. (await repository.GetCalledAsync()).Select(x => x.ID)];
+            Source = [.. (await repository.GetCalledAsync()).Select(s => s.ID)];
         });
     }
 }

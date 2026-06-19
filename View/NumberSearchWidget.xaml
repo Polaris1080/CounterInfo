@@ -9,6 +9,12 @@
         <self:NumberSearchWidgetViewModel/>
     </ContentView.BindingContext>
     <ContentView.Resources>
+        <!-- 枠線の太さ -->
+        <x:Int32 x:Key="BorderThickness">2</x:Int32>
+        <!-- 入力欄の最大値 -->
+        <x:Int32 x:Key="NumberMin">1</x:Int32>
+        <!-- 入力欄の最小値 -->
+        <x:Int32 x:Key="NumberMax">9999</x:Int32>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red"  />
         </Style>
@@ -17,7 +23,8 @@
         </Style>
     </ContentView.Resources>
 
-    <Border Stroke="{StaticResource Gray300Brush}" StrokeThickness="2" HorizontalOptions="Center">
+    <Border Stroke="{StaticResource Gray300Brush}" StrokeThickness="{StaticResource BorderThickness}"
+            HorizontalOptions="Center" VerticalOptions="Center">
         <VerticalStackLayout BackgroundColor="{StaticResource Secondary}" Padding="10,10,2,8" Spacing="8">
             <HorizontalStackLayout>
                 <Entry Keyboard="Numeric" Text="{Binding Query, Mode=TwoWay}" Placeholder="受付番号"
@@ -25,13 +32,13 @@
                     <Entry.Behaviors>
                         <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged"
                             InvalidStyle="{StaticResource InvalidEntryStyle}" ValidStyle="{StaticResource ValidEntryStyle}"
-                            MinimumValue="1" MaximumValue="9999" MaximumDecimalPlaces="0" />
-                        </Entry.Behaviors>
-                    </Entry>
+                            MinimumValue="{StaticResource NumberMin}" MaximumValue="{StaticResource NumberMax}" MaximumDecimalPlaces="0" />
+                    </Entry.Behaviors>
+                </Entry>
                 <Button Text="検索" ContentLayout="Left" ImageSource="search_icon_white.png" VerticalOptions="Center"
-                        Command="{Binding SearchCommand}" IsEnabled="{Binding SearchButtonEnable}"/>                
+                        Command="{Binding SearchCommand}" IsEnabled="{Binding SearchButtonEnable}"/>
             </HorizontalStackLayout>
             <Label Text="{Binding Result, Mode=OneWay}"/>
-        </VerticalStackLayout>        
+        </VerticalStackLayout>
     </Border>
 </ContentView>

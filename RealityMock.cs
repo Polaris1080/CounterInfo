@@ -10,7 +10,7 @@ internal sealed class RealityMock
     private static readonly RealityMock _singleInstance = new();
 
     /// <summary>発行（自動化）</summary>
-    private List<Timer> issueTimers;
+    private List<Timer> issueTimers = [];
     /// <summary>受付（自動化）</summary>
     private List<Timer> receptTimers = [];
 

@@ -18,14 +18,16 @@ public partial class NumberSearchWidget : ContentView
 
 public partial class NumberSearchWidgetViewModel : ObservableObject
 {
-    private const int NumberMin = 1, NumberMax = 9999;
+    /// <summary>検索範囲（最小値）</summary>
+    private const int NumberMin = 1;
+    /// <summary>検索範囲（最大値）</summary>
+    private const int NumberMax = 9999;
 
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(SearchButtonEnable))]
-    public partial string? Query { get; set; }
-    public bool SearchButtonEnable => int.TryParse(Query, out int parsed) && NumberMin <= parsed && parsed <= NumberMax;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(SearchButtonEnable))] public  partial string? Query { get; set; }
+    private int? Parsed             => int.TryParse(Query, out int parsed) ? parsed : null;
+    public  bool SearchButtonEnable => Parsed is not null && NumberMin <= Parsed && Parsed <= NumberMax;
 
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(Result))]
-    private partial States State { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(Result))]             private partial States  State { get; set; }
     public string Result => State switch {
         States.Waiting => "検索待機中…",
         States.UnIssue => "発券しておりません。",
@@ -36,12 +38,11 @@ public partial class NumberSearchWidgetViewModel : ObservableObject
         _ => throw new NotImplementedException(),
     };
 
-    [RelayCommand]
-    private async Task Search()
+    [RelayCommand] private async Task Search()
     {
         if (SearchButtonEnable)
         {
-            State = await new CounterInfoRepository().GetItemAsync(int.Parse(Query!)) switch {
+            State = await new CounterInfoRepository().GetItemAsync((int)Parsed!) switch {
                 null => States.UnIssue,
                 CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch {
                     (null,    _,     _) => States.UnIssue,
