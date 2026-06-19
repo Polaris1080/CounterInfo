@@ -37,6 +37,11 @@ namespace CounterInfo.Repository
             await Init();
             return await database!.DeleteAsync(item);
         }
+        public async Task DeleteItemAsync(int id)
+        {
+            await Init();
+            await database!.RunInTransactionAsync(async tran => {if (await GetItemAsync(id) is CounterSetting cs) tran.Delete(cs); });
+        }
 
         public async Task<int> GetCountAsync()
         {

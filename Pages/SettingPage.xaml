@@ -4,19 +4,11 @@
              xmlns:vm="clr-namespace:CounterInfo.ViewModels"
              x:Class   ="CounterInfo.Pages.SettingPage"
              x:DataType="vm:SettingPageViewModel"
-             NavigationPage.HasNavigationBar="false">
+             NavigationPage.HasBackButton   ="False"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <vm:SettingPageViewModel/>
     </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        <!--<Style TargetType="Label">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="4"/>
-            --><!--<Setter Property="TextColor" Value="{StaticResource White}"/>--><!--
-            <Setter Property="VerticalTextAlignment" Value="Center"/>
-        </Style>-->
-    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
@@ -40,29 +32,65 @@
                 </VerticalStackLayout>
             </Grid>
 
+            <!-- body -->
             <VerticalStackLayout>
-                <Label Text="窓口Ａ"/>
-                <Label Text="名称"/>
-                <Entry Text="{Binding Name}"/>
-                <BoxView HeightRequest="2" Margin="0,9"/>
-                <Label Text="確率"/>
-                <Stepper Minimum="0" Maximum="100" Increment="1" />
-                <Label Text="％"/>
-                <BoxView HeightRequest="2" Margin="0,9"/>
-                <Label Text="時間"/>
-                <TimePicker />
-                <TimePicker />
-                <BoxView HeightRequest="2" Margin="0,9"/>
-                <Label Text="間隔"/>
-                <Stepper Minimum="1" Maximum="60" Increment="1" />
-                <BoxView HeightRequest="2" Margin="0,9"/>
-                <Label Text="範囲"/>
-                <Entry Placeholder="" />
-                <Picker Title="" />
-                <BoxView HeightRequest="2" Margin="0,9"/>
-                <HorizontalStackLayout>
-                    <Button ImageSource="remove_icon_white.png" />
-                </HorizontalStackLayout>
+                <VerticalStackLayout.Resources>
+                    <ColumnDefinitionCollection x:Key="ColDefinition">
+                        <ColumnDefinition Width= "*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </ColumnDefinitionCollection>
+                    <RowDefinitionCollection x:Key="RowDefinition">
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </RowDefinitionCollection>
+                    <Style TargetType="Grid">
+                        <Setter Property="ColumnDefinitions" Value="{StaticResource ColDefinition}"/>
+                        <Setter Property=   "RowDefinitions" Value="{StaticResource RowDefinition}"/>
+                    </Style>
+                </VerticalStackLayout.Resources>
+
+                <Grid>
+                    <Label Grid.Row="0" Grid.Column="0" Text="名称" TextDecorations="Underline"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Placeholder="窓口Ａ" VerticalOptions="Start"/>
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                </Grid>
+                <Grid>
+                    <Label Text="間隔"/>
+                    <VerticalStackLayout Grid.Column="1">
+                        <HorizontalStackLayout>
+                            <Label Text="受付"/>
+                            <Label Text="5"/>
+                            <Label Text="分"/>
+                            <Stepper Minimum="1" Maximum="60" Increment="1" />
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="発行"/>
+                            <Label Text="5"/>
+                            <Label Text="分"/>
+                            <Stepper Minimum="1" Maximum="60" Increment="1" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                </Grid>
+                <Grid>
+                    <Label Text="不在確率" Grid.Column="1"/>
+                    <HorizontalStackLayout>
+                        <Label Text="0"/>
+                        <Label Text="％"/>
+                        <Stepper Minimum="0" Maximum="100" Increment="1" />
+                    </HorizontalStackLayout>
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>                    
+                </Grid>
+                <Grid>
+                    <Label Text="発行範囲"/>
+                    <VerticalStackLayout Grid.Column="1">
+                            <Label Text="0"/>
+                            <Label Text="から"/>
+                            <Stepper Minimum="0" Maximum="100" Increment="1" />
+                    </VerticalStackLayout>
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                </Grid>
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

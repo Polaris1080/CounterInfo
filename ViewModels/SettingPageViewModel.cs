@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CounterInfo.Models;
+using CounterInfo.Pages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,29 +17,45 @@ namespace CounterInfo.ViewModels
         public Visibility AppendModeVisible =>  ChangeMode ? Visibility.Visible : Visibility.Collapsed;
         public Visibility ChangeModeVisible => !ChangeMode ? Visibility.Visible : Visibility.Collapsed;
 
-        public int ID { get => _id; set => SetProperty(ref _id, value); }
-        private int _id = 0;
+        [ObservableProperty]
+        public partial int ID { get; set; } = 0;
 
+        [ObservableProperty]
+        public partial string Name { get; set; } = "";
 
-        public string Name
-        {
-            get => _name;
-            set => SetProperty(ref _name, value);
+        [ObservableProperty]
+        public partial int IssueInterval { get; set; } = 3;
+
+        [ObservableProperty]
+        public partial int ReceptInterval { get; set; } = 2;
+
+        [ObservableProperty]
+        public partial int AbsenceParcent { get; set; } = 1;
+
+        [ObservableProperty]
+        public partial int Range { get; set; } = 0;
+
+        [ObservableProperty]
+        public partial int Order { get; set; } = 0;
+
+        public SettingPageViewModel() { }
+
+        public SettingPageViewModel(CounterSetting cs) {
+            ID             = cs.ID;
+            Name           = cs.Name;
+             IssueInterval = cs.IssueInterval;
+            ReceptInterval = cs.ReceptInterval;
+            AbsenceParcent = cs.AbsenceParcent;
+            Range          = cs.Range;
         }
-        private string _name = "";
 
-        public int Order { get => _order; set => SetProperty(ref _order, value); }
-        private int _order;
-
-        public SettingPageViewModel() {
-
-            DeleteCommand =  new AsyncRelayCommand(Delete);
-        }
-
-        public ICommand DeleteCommand { get; }
-
-        async Task Delete() {
-            WeakReferenceMessenger.Default.Send(new Messages.CounterSettingDeleteMessage(ID));
-        }
+        public CounterSetting ToCounterSetting() => new() {
+            ID             = ID,
+            Name           = Name,
+             IssueInterval =  IssueInterval,
+            ReceptInterval = ReceptInterval,
+            AbsenceParcent = AbsenceParcent,
+            Range          = Range
+        };
     }
 }
