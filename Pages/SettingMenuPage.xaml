@@ -34,7 +34,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Name}" VerticalOptions="Center"/>
                                     <HorizontalStackLayout Grid.Column="1">
                                     <HorizontalStackLayout.Resources>
                                         <Style TargetType="Button"  BasedOn="{StaticResource Small}"/>

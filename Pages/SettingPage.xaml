@@ -9,6 +9,9 @@
     <ContentPage.BindingContext>
         <vm:SettingPageViewModel/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <x:Int32 x:Key="ItemSpacing">10</x:Int32>
+    </ContentPage.Resources>
 
     <ScrollView>
         <VerticalStackLayout BackgroundColor="{StaticResource Gray100}">
@@ -46,50 +49,66 @@
                     <Style TargetType="Grid">
                         <Setter Property="ColumnDefinitions" Value="{StaticResource ColDefinition}"/>
                         <Setter Property=   "RowDefinitions" Value="{StaticResource RowDefinition}"/>
+                        <Setter Property="RowSpacing" Value="{StaticResource ItemSpacing}"/>
+                        <Setter Property="Margin"     Value="10,10,10,0"/>
+                    </Style>
+                    <Style TargetType="BoxView">
+                        <Setter Property="Grid.Row"        Value="1"/>
+                        <Setter Property="Grid.ColumnSpan" Value="2"/>
+                        <Setter Property="BackgroundColor" Value="{StaticResource Gray300}"/>
+                        <Setter Property="HeightRequest" Value="2"/>
+                        <Setter Property="Margin"        Value="0"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="Header">
+                        <Setter Property="Grid.Row"    Value="0"/>
+                        <Setter Property="Grid.Column" Value="0"/>
+                        <Setter Property="VerticalOptions" Value="Center"   />
+                        <Setter Property="FontSize"        Value="18"       />
+                        <Setter Property="TextDecorations" Value="Underline"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="Normal">
+                        <Setter Property="Grid.Row"    Value="0"/>
+                        <Setter Property="Grid.Column" Value="0"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="FontSize"        Value="16"    />
+                        <Setter Property="TextDecorations" Value="None"  />
                     </Style>
                 </VerticalStackLayout.Resources>
 
                 <Grid>
-                    <Label Grid.Row="0" Grid.Column="0" Text="名称" TextDecorations="Underline"/>
-                    <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Placeholder="窓口Ａ" VerticalOptions="Start"/>
-                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                    <Label Style="{StaticResource Header}" Text="名称" TextDecorations="Underline" />
+                    <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Placeholder="窓口Ａ"/>
+                    <BoxView/>
                 </Grid>
                 <Grid>
-                    <Label Text="間隔"/>
-                    <VerticalStackLayout Grid.Column="1">
-                        <HorizontalStackLayout>
-                            <Label Text="受付"/>
-                            <Label Text="5"/>
-                            <Label Text="分"/>
-                            <Stepper Minimum="1" Maximum="60" Increment="1" />
+                    <Label Style="{StaticResource Header}" Text="間隔"/>
+                    <VerticalStackLayout Grid.Column="1" Spacing="{StaticResource ItemSpacing}">
+                        <HorizontalStackLayout Spacing="{StaticResource ItemSpacing}">
+                            <Label   Text ="{Binding  IssueInterval, StringFormat='受付：{0}分'}" Style="{StaticResource Normal}"/>
+                            <Stepper Value="{Binding  IssueInterval}" Minimum="1" Maximum="60" Increment="1"/>
                         </HorizontalStackLayout>
-                        <HorizontalStackLayout>
-                            <Label Text="発行"/>
-                            <Label Text="5"/>
-                            <Label Text="分"/>
-                            <Stepper Minimum="1" Maximum="60" Increment="1" />
+                        <HorizontalStackLayout Spacing="{StaticResource ItemSpacing}">
+                            <Label   Text ="{Binding ReceptInterval, StringFormat='発行：{0}分'}" Style="{StaticResource Normal}"/>
+                            <Stepper Value="{Binding ReceptInterval}" Minimum="1" Maximum="60" Increment="1" />
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
-
-                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                    <BoxView/>
                 </Grid>
                 <Grid>
-                    <Label Text="不在確率" Grid.Column="1"/>
-                    <HorizontalStackLayout>
-                        <Label Text="0"/>
-                        <Label Text="％"/>
-                        <Stepper Minimum="0" Maximum="100" Increment="1" />
+                    <Label Text="不在確率" Style="{StaticResource Header}"/>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="{StaticResource ItemSpacing}">
+                        <Label   Text ="{Binding AbsenceParcent, StringFormat='{0}％'}" Style="{StaticResource Normal}"/>
+                        <Stepper Value="{Binding AbsenceParcent}" Minimum="0" Maximum="100" Increment="1" />
                     </HorizontalStackLayout>
-                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>                    
+                    <BoxView/>                    
                 </Grid>
                 <Grid>
-                    <Label Text="発行範囲"/>
-                    <VerticalStackLayout Grid.Column="1">
-                            <Label Text="0"/>
-                            <Label Text="から"/>
-                            <Stepper Minimum="0" Maximum="4900" Increment="100" />
-                    </VerticalStackLayout>
-                    <BoxView Grid.Row="1" Grid.ColumnSpan="2" HeightRequest="2" Margin="0"/>
+                    <Label Text="発行範囲"  Style="{StaticResource Header}"/>
+                    <HorizontalStackLayout Grid.Column="1" Spacing="{StaticResource ItemSpacing}">
+                        <Label   Text ="{Binding Range, StringFormat='{0}から'}"  Style="{StaticResource Normal}"/>
+                        <Stepper Value="{Binding Range}" Minimum="1" Maximum="4901" Increment="100" />
+                    </HorizontalStackLayout>
+                    <BoxView/>
                 </Grid>
             </VerticalStackLayout>
         </VerticalStackLayout>
