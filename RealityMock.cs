@@ -23,18 +23,16 @@ internal sealed class RealityMock
         {
             var _cs = await counterSettingRepository.GetItemsAsync();
             issueTimers = [.. _cs.Select(x => new Timer(new(
-                async _ => await counterInfoRepository.SaveItemAsync(new CounterInfomation() { Counter = x.ID })),
-                null,
-                TimeSpan.Zero,
-                TimeSpan.FromSeconds(x.IssueInterval * 60)
+                async _ => await counterInfoRepository.InsertItemAsync(new CounterInfomation() { ID = x.Range, Counter = x.ID })), null,
+                dueTime: TimeSpan.FromSeconds(x.IssueInterval * 60),
+                 period: TimeSpan.FromSeconds(x.IssueInterval * 60)
             ))];
 
             _cs.ToList().ForEach(async cs => {
                receptTimers.Add(new(new(
-                   async _ => await counterInfoRepository.ReceptAsync(cs.ID,cs.AbsenceParcent)),
-                   null,
-                   TimeSpan.Zero,
-                   TimeSpan.FromSeconds(cs.ReceptInterval * 60)
+                   async _ => await counterInfoRepository.ReceptAsync(cs.ID, cs.AbsenceParcent)), null,
+                   dueTime: TimeSpan.FromSeconds(cs.ReceptInterval * 60),
+                    period: TimeSpan.FromSeconds(cs.ReceptInterval * 60)
                ));
                await Task.Delay(1000).ConfigureAwait(false);
             });

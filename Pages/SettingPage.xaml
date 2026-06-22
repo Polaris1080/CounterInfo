@@ -102,14 +102,16 @@
                     </HorizontalStackLayout>
                     <BoxView/>                    
                 </Grid>
-                <Grid>
+                <!--#region 仕様上動作していない？-->
+                <!--<Grid>
                     <Label Text="発行範囲"  Style="{StaticResource Header}"/>
                     <HorizontalStackLayout Grid.Column="1" Spacing="{StaticResource ItemSpacing}">
                         <Label   Text ="{Binding Range, StringFormat='{0}から'}"  Style="{StaticResource Normal}"/>
                         <Stepper Value="{Binding Range}" Minimum="1" Maximum="4901" Increment="100" />
                     </HorizontalStackLayout>
                     <BoxView/>
-                </Grid>
+                </Grid>-->
+                <!--#endregion-->
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

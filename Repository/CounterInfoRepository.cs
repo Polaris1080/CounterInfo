@@ -38,14 +38,13 @@ namespace CounterInfo.Repository
         public async Task<int> SaveItemAsync(CounterInfomation item)
         {
             await Init();
-            if (item.ID != 0)
-            {
-                return await database!.UpdateAsync(item);
-            }
-            else
-            {
-                return await database!.InsertAsync(item);
-            }
+            return item.ID != 0 ? await database!.UpdateAsync(item) : await database!.InsertAsync(item);
+        }
+
+        public async Task<int> InsertItemAsync(CounterInfomation item)
+        {
+            await Init();
+            return await database!.InsertAsync(item);
         }
 
         public async Task<int> DeleteItemAsync(CounterInfomation item)
