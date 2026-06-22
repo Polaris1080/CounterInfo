@@ -40,7 +40,7 @@ internal partial class SettingMenuPageViewModel : ObservableObject
         }
         void Refresh() => Task.Run(async () => {
             var setting = (await repository.GetItemsAsync()).OrderBy(o => o.Order);
-            Source = [..setting.Select(s => new SettingMenuCounterHeadingViewModel(s, setting.Count() - 1))];
+            Source = [..setting.Select(s => new SettingMenuCounterHeadingViewModel(s, orderMax: setting.Count() - 1))];
         });
     }
 }
