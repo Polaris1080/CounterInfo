@@ -14,6 +14,7 @@ namespace CounterInfo.Repository
         {
             if (database is not null) return;
             database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            System.Diagnostics.Debug.WriteLine(Constants.DatabasePath);
             var result = await database.CreateTableAsync<CounterInfomation>();
         }
 
