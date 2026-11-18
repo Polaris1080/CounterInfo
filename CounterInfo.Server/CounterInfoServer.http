@@ -1,9 +1,0 @@
-﻿@CounterInfoServer_HostAddress = https://localhost:7083
-
-GET {{CounterInfoServer_HostAddress}}/api/counterinfomation
-
-###
-
-GET {{CounterInfoServer_HostAddress}}/api/called
-
-###
