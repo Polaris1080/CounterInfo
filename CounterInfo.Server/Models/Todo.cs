@@ -1,4 +1,4 @@
-﻿namespace CounterInfo.Server.Models
+﻿namespace CounterInfoServer.Models
 {
     public class Todo
     {

@@ -1,7 +1,7 @@
 ﻿namespace CounterInfoServer.Endpoints;
 
-using CounterInfo.Server;
-using CounterInfo.Server.Models;
+using CounterInfoServer;
+using CounterInfoServer.Models;
 using Microsoft.EntityFrameworkCore;
 
 

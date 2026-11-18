@@ -49,8 +49,8 @@
 //}
 
 
-using CounterInfo.Server;
-using CounterInfo.Server.Models;
+using CounterInfoServer.Models;
+using CounterInfoServer;
 using CounterInfoServer.Endpoints;
 using Microsoft.EntityFrameworkCore;
 
