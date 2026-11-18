@@ -148,7 +148,14 @@ app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
 #endregion
 
 #region Info
+app.MapGet("/api/counterinfomation", async (TodoDb db) =>
+    {
+        var t = await db.CounterInfomations.ToListAsync();
+        return t;
+    }
+);
 
+app.MapGet("/api/called", async (TodoDb db) => await db.CounterInfomations.Where(w => w.Called).Select(s => s.ID).ToListAsync());
 
 #endregion
 
