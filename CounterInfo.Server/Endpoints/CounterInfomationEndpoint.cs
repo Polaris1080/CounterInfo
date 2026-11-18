@@ -16,35 +16,28 @@ public static class CounterInfomationEndPoint
             var group = app.MapGroup("/api/v1/counter_info");
             group.MapGet("", async (TodoDb db) =>
                 {
-                    var t = await db.CounterInfomations.ToListAsync();
+
+                    var t = await db.CounterInfoData.FromSqlRaw("""
+        SELECT  name                                                                                                               as detail,
+               (SELECT count(*) FROM CounterInfomation as CI WHERE CI.counter = CS.ID and CI.ReceptTime is null)                  as waiting,
+               (SELECT CI.id    FROM CounterInfomation as CI WHERE CI.counter = CS.ID ORDER by CI.ID DESC)                         as number,
+               (SELECT ReceptTime - IssueTime FROM CounterInfomation as CI WHERE CI.counter = CS.id and CI.ReceptTime is not null) as estimate
+        FROM    CounterSetting as CS
+     """).ToListAsync();
                     return t;
                 }
             );
-            //group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(w => w.ID == id) switch
-            //{
-            //    null => States.UnIssue,
-            //    CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
-            //    {
-            //        (null, _, _) => States.UnIssue,
-            //        (_, null, _) => States.Issue,
-            //        (_, _,  true) => States.Called,
-            //        (_, _, false) => States.Recept
-            //    },
-            //});
-            group.MapGet("{id}", async (int id, TodoDb db) => {
-                var t1 = await db.CounterInfomations.FirstOrDefaultAsync(w => w.ID == id);
-                return t1 switch
+            group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(w => w.ID == id) switch
+            {
+                null => States.UnIssue,
+                CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
                 {
-                    null => States.UnIssue,
-                    CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
-                    {
-                        (null, _, _) => States.UnIssue,
-                        (_, null, _) => States.Issue,
-                        (_, _, true) => States.Recept,
-                        (_, _, false) => States.Called
-                    },
-                };
-            }  );
+                    (null, _, _) => States.UnIssue,
+                    (_, null, _) => States.Issue,
+                    (_, _, true) => States.Called,
+                    (_, _, false) => States.Recept
+                },
+            });
             group.MapGet("called", async (TodoDb db) => await db.CounterInfomations.Where(w => w.Called).Select(s => s.ID).ToListAsync());
         }
     }
