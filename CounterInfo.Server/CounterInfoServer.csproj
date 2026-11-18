@@ -4,6 +4,7 @@
 	<TargetFrameworks>net11.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;Debug-ConnectServer</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

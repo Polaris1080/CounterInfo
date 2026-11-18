@@ -1,6 +1,7 @@
 <Solution>
   <Configurations>
     <BuildType Name="Debug" />
+    <BuildType Name="Debug-ConnectServer" />
     <BuildType Name="Debug-StopRealityMock" />
     <BuildType Name="Release" />
   </Configurations>
@@ -12,10 +13,13 @@
   </Project>
   <Project Path="../CounterInfoTest/CounterInfoTest.csproj">
     <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
+    <Platform Solution="Debug-ConnectServer|*" Project="x64" />
     <Platform Solution="Debug-StopRealityMock|*" Project="x64" />
   </Project>
   <Project Path="CounterInfo.csproj">
+    <Platform Solution="Debug-ConnectServer|*" Project="x64" />
     <Platform Solution="Debug-StopRealityMock|*" Project="x64" />
+    <Deploy Solution="Debug-ConnectServer|*" />
     <Deploy Solution="Debug-StopRealityMock|*" />
     <Deploy Solution="Debug|*" />
   </Project>

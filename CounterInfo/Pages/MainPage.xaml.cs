@@ -13,7 +13,7 @@ public partial class MainPage : ContentPage
 
 
     /* Value */
-#if DEBUG_STOPREALITYMOCK
+#if DEBUG_STOPREALITYMOCK || DEBUG_CONNECTSERVER
 #else
     private readonly RealityMock realityMock = RealityMock.GetInstance();
 #endif
