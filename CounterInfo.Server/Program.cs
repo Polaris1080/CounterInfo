@@ -147,6 +147,10 @@ app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
 });
 #endregion
 
+#region Info
+
+
+#endregion
 
 
 app.Run();
