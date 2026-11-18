@@ -7,6 +7,9 @@
   <Project Path="../CounterInfo.Server/CounterInfoServer.csproj" Id="7cadc331-3935-4094-8dda-1ad549598c35">
     <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
   </Project>
+  <Project Path="../CounterInfo.Shared/CounterInfo.Shared.csproj" Id="b7a4b557-9ad7-4fc3-ab08-904784618a05">
+    <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
+  </Project>
   <Project Path="../CounterInfoTest/CounterInfoTest.csproj">
     <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
     <Platform Solution="Debug-StopRealityMock|*" Project="x64" />
