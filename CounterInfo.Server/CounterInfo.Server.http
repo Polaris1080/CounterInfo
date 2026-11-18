@@ -1,0 +1,25 @@
+@CounterInfo.Server_HostAddress = https://localhost:7083
+
+GET {{CounterInfo.Server_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+
+GET {{CounterInfo.Server_HostAddress}}/todoitems
+
+###
+
+POST {{CounterInfo.Server_HostAddress}}/todoitems
+Content-Type: application/json
+
+{
+  "name":"walk dog",
+  "isComplete":true
+}
+
+###
+
+GET {{CounterInfo.Server_HostAddress}}/todoitems/complete
+
+###

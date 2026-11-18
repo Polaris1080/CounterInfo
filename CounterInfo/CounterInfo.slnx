@@ -4,6 +4,9 @@
     <BuildType Name="Debug-StopRealityMock" />
     <BuildType Name="Release" />
   </Configurations>
+  <Project Path="../CounterInfo.Server/CounterInfo.Server.csproj" Id="7cadc331-3935-4094-8dda-1ad549598c35">
+    <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
+  </Project>
   <Project Path="../CounterInfoTest/CounterInfoTest.csproj">
     <BuildType Solution="Debug-StopRealityMock|*" Project="Debug" />
     <Platform Solution="Debug-StopRealityMock|*" Project="x64" />
