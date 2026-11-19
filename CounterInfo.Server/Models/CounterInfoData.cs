@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SQLite;
-namespace CounterInfoServer.Models;
+namespace CounterInfo.Server.Models;
 
 [Keyless]
 public sealed record CounterInfoData

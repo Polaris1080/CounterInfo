@@ -50,9 +50,9 @@
 
 
 using CounterInfoServer.Models;
-using CounterInfoServer;
-using CounterInfoServer.Endpoints;
 using Microsoft.EntityFrameworkCore;
+using CounterInfo.Server.Endpoints;
+using CounterInfo.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TodoDb>(opt => opt.UseSqlite("Data Source=sample.db"));

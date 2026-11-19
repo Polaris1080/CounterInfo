@@ -28,14 +28,14 @@ public partial class NumberSearchWidgetViewModel : ObservableObject
     private int? Parsed             => int.TryParse(Query, out int parsed) ? parsed : null;
     public  bool SearchButtonEnable => Parsed is not null && NumberMin <= Parsed && Parsed <= NumberMax;
 
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(Result))]             private partial States  State { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(Result))]             private partial RegistrationState  State { get; set; }
     public string Result => State switch {
-        States.Waiting => "検索待機中…",
-        States.UnIssue => "発券しておりません。",
-        States.Issue   => "順番待ちです。",
-        States.Recept  => "呼び出し時に不在でした…",
-        States.Called  => "既に対応しています。",
-        States.Error   => "不具合が発生しています！",
+        RegistrationState.Waiting => "検索待機中…",
+        RegistrationState.UnIssue => "発券しておりません。",
+        RegistrationState.Issue   => "順番待ちです。",
+        RegistrationState.Recept  => "呼び出し時に不在でした…",
+        RegistrationState.Called  => "既に対応しています。",
+        RegistrationState.Error   => "不具合が発生しています！",
         _ => throw new NotImplementedException(),
     };
 
@@ -48,13 +48,13 @@ public partial class NumberSearchWidgetViewModel : ObservableObject
 #else
             State = await new CounterInfoRepository().GetItemAsync((int)Parsed!) switch
             {
-                null => States.UnIssue,
+                null => RegistrationState.UnIssue,
                 CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
                 {
-                    (null, _, _) => States.UnIssue,
-                    (_, null, _) => States.Issue,
-                    (_, _, true) => States.Called,
-                    (_, _, false) => States.Recept
+                    (null, _, _) => RegistrationState.UnIssue,
+                    (_, null, _) => RegistrationState.Issue,
+                    (_, _, true) => RegistrationState.Called,
+                    (_, _, false) => RegistrationState.Recept
                 },
             };
 #endif

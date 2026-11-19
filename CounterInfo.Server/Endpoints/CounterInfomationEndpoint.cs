@@ -1,11 +1,10 @@
-﻿namespace CounterInfoServer.Endpoints;
+﻿namespace CounterInfo.Server.Endpoints;
 
-using CounterInfoServer;
-using CounterInfoServer.Models;
-using Microsoft.EntityFrameworkCore;
+using CounterInfo.Server;
+using CounterInfo.Server.Models;
+using CounterInfo.Server.Extensions;
 using CounterInfo.Shared;
-
-
+using Microsoft.EntityFrameworkCore;
 
 public static class CounterInfomationEndPoint
 {
@@ -30,17 +29,11 @@ public static class CounterInfomationEndPoint
                 }
             );
 
-            // Get number state.
+            // Get registration state.
             group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(f => f.ID == id) switch
             {
-                null => States.UnIssue,
-                CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
-                {
-                    (null, _, _) => States.UnIssue,
-                    (_, null, _) => States.Issue,
-                    (_, _, true) => States.Called,
-                    (_, _, false) => States.Recept
-                },
+                CounterInfomation ci => ci.ToRegistrationState(),
+                null => RegistrationState.UnIssue,
             });
 
             // Get "Called".

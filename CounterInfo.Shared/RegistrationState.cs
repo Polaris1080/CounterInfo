@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CounterInfo.Shared
 {
-    public enum States
+    public enum RegistrationState
     {
         /// <summary>待機中</summary>
         Waiting,

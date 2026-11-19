@@ -45,9 +45,9 @@ namespace CounterInfo
             return Items;
         }
 
-        public async Task<States> SearchAsync(int id)
+        public async Task<RegistrationState> SearchAsync(int id)
         {
-            States Items;
+            RegistrationState Items;
 
             Uri uri = new Uri($"https://localhost:7083/api/v1/counter_info/{id}");
             try
@@ -56,17 +56,17 @@ namespace CounterInfo
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Items = JsonSerializer.Deserialize<States>(content, _serializerOptions);
+                    Items = JsonSerializer.Deserialize<RegistrationState>(content, _serializerOptions);
                 }
                 else
                 {
-                    Items = States.Error;
+                    Items = RegistrationState.Error;
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                Items = States.Error;
+                Items = RegistrationState.Error;
             }
 
             return Items;

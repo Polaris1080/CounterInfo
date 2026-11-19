@@ -1,8 +1,8 @@
-﻿namespace CounterInfoServer;
+﻿namespace CounterInfo.Server;
 
-using CounterInfoServer.Models;
+using CounterInfo.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
+
 
 
 class TodoDb : DbContext
