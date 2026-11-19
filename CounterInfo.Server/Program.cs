@@ -49,7 +49,7 @@
 //}
 
 
-using CounterInfoServer.Models;
+using CounterInfo.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using CounterInfo.Server.Endpoints;
 using CounterInfo.Server;
@@ -62,7 +62,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
 });
-
+builder.Services.AddHostedService<RealityMockService>();
 
 var app = builder.Build();
 

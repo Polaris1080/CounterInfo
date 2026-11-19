@@ -1,10 +1,12 @@
 ﻿namespace CounterInfo.Server.Endpoints;
 
 using CounterInfo.Server;
-using CounterInfo.Server.Models;
 using CounterInfo.Server.Extensions;
+using CounterInfo.Server.Models;
 using CounterInfo.Shared;
 using Microsoft.EntityFrameworkCore;
+
+
 
 public static class CounterInfomationEndPoint
 {
@@ -16,18 +18,13 @@ public static class CounterInfomationEndPoint
 
 
             // Get counter status.
-            group.MapGet("", async (TodoDb db) =>
-                {
-                    var t = await db.CounterInfoData.FromSqlRaw("""
-        SELECT  name                                                                                                               as detail,
-               (SELECT count(*) FROM CounterInfomation as CI WHERE CI.counter = CS.ID and CI.ReceptTime is null)                  as waiting,
-               (SELECT CI.id    FROM CounterInfomation as CI WHERE CI.counter = CS.ID ORDER by CI.ID DESC)                         as number,
-               (SELECT ReceptTime - IssueTime FROM CounterInfomation as CI WHERE CI.counter = CS.id and CI.ReceptTime is not null) as estimate
-        FROM    CounterSetting as CS
-     """).ToListAsync();
-                    return t;
-                }
-            );
+            group.MapGet("", async (TodoDb db) => await db.CounterInfoData.FromSqlRaw("""
+                SELECT  name                                                                                                               as detail,
+                       (SELECT count(*) FROM CounterInfomation as CI WHERE CI.counter = CS.ID and CI.ReceptTime is null)                   as waiting,
+                       (SELECT CI.id    FROM CounterInfomation as CI WHERE CI.counter = CS.ID ORDER by CI.ID DESC)                         as number,
+                       (SELECT ReceptTime - IssueTime FROM CounterInfomation as CI WHERE CI.counter = CS.id and CI.ReceptTime is not null) as estimate
+                FROM    CounterSetting as CS
+             """).ToListAsync());
 
             // Get registration state.
             group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(f => f.ID == id) switch
