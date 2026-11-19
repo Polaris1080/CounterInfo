@@ -14,9 +14,11 @@ public static class CounterInfomationEndPoint
         public void RegisterCounterInfomationEndPoint()
         {
             var group = app.MapGroup("/api/v1/counter_info");
+
+
+            // Get counter status.
             group.MapGet("", async (TodoDb db) =>
                 {
-
                     var t = await db.CounterInfoData.FromSqlRaw("""
         SELECT  name                                                                                                               as detail,
                (SELECT count(*) FROM CounterInfomation as CI WHERE CI.counter = CS.ID and CI.ReceptTime is null)                  as waiting,
@@ -27,7 +29,9 @@ public static class CounterInfomationEndPoint
                     return t;
                 }
             );
-            group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(w => w.ID == id) switch
+
+            // Get number state.
+            group.MapGet("{id}", async (int id, TodoDb db) => await db.CounterInfomations.FirstOrDefaultAsync(f => f.ID == id) switch
             {
                 null => States.UnIssue,
                 CounterInfomation ci => (ci.IssueTime, ci.ReceptTime, ci.Called) switch
@@ -38,7 +42,12 @@ public static class CounterInfomationEndPoint
                     (_, _, false) => States.Recept
                 },
             });
+
+            // Get "Called".
             group.MapGet("called", async (TodoDb db) => await db.CounterInfomations.Where(w => w.Called).Select(s => s.ID).ToListAsync());
+
+            // Check connection.
+            group.MapGet("ping", () => Results.Ok("pong"));
         }
     }
 }
