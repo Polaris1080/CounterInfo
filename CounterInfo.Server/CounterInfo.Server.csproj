@@ -18,4 +18,10 @@
     <ProjectReference Include="..\CounterInfo.Shared\CounterInfo.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\component\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>
