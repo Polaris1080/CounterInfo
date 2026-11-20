@@ -92,7 +92,9 @@ var options = new DbContextOptionsBuilder<TodoDb>()
 using var db = new TodoDb(options);
 db.Database.EnsureCreated();
 
+/* Pending
 app.UseStaticFiles();
+*/
 
 #region Registering endpoint
 app.RegisterCounterInfomationEndPoint();
